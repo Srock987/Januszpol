@@ -4,6 +4,7 @@ import org.testfx.framework.junit.ApplicationTest;
 import pl.edu.agh.eaiib.io.xp.StartupClass;
 
 import static org.testfx.api.FxAssert.verifyThat;
+import static org.testfx.matcher.base.NodeMatchers.isVisible;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
 
 public class MainViewTest extends ApplicationTest {
@@ -13,14 +14,22 @@ public class MainViewTest extends ApplicationTest {
         startupClass.start(stage);
     }
 
-    @Test public void should_contain_title_label() {
+    @Test
+    public void should_contain_title_label() {
         verifyThat("#titleLabel", hasText("Rejestrator czasu pracy".toUpperCase()));
     }
 
-    @Test public void should_contain_buttons() {
+    @Test
+    public void should_contain_buttons() {
         verifyThat("#addCompanyButton", hasText("Dodaj firmę"));
         verifyThat("#addNoteButton", hasText("Dodaj wpis"));
         verifyThat("#viewAllButton", hasText("Zobacz wpisy"));
         verifyThat("#generateReportButton", hasText("Generuj raport"));
+    }
+
+    @Test
+    public void button_should_navigate() {
+        clickOn("#addCompanyButton");
+        verifyThat("#addCompanyPane", isVisible());
     }
 }

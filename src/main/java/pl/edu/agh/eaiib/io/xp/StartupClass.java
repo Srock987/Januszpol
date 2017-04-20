@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.edu.agh.eaiib.io.xp.controllers.MainViewController;
 import pl.edu.agh.eaiib.io.xp.utils.ResourceUtils;
 
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class StartupClass extends Application {
 
     public void start(Stage primaryStage) throws Exception {
         ResourceBundle resources = ResourceUtils.loadLabelsForDefaultLocale();
-        Scene scene = prepareScene(resources);
+        Scene scene = prepareScene(resources, primaryStage);
 
         String appTitle = resources.getString(APP_NAME_RESOURCE_KEY);
 
@@ -34,21 +35,24 @@ public class StartupClass extends Application {
         logger.info("Main window showed");
     }
 
-    private Scene prepareScene(ResourceBundle resources) throws IOException {
-        Scene scene = buildScene(resources);
+    private Scene prepareScene(ResourceBundle resources, Stage primaryStage) throws IOException {
+        Scene scene = buildScene(resources, primaryStage);
 
         setStyleSheet(scene);
         return scene;
     }
 
-    private Scene buildScene(ResourceBundle resources) throws IOException {
-        Parent rootNode = loadFXMLForm(resources);
-        logger.info("Loaded main fxml from file");
-        return new Scene(rootNode);
+    private Scene buildScene(ResourceBundle resources, Stage primaryStage) throws IOException {
+        FXMLLoader loader = loadFXMLForm(resources);
+        MainViewController mainViewController = loader.getController();
+        mainViewController.setStage(primaryStage);
+        mainViewController.setResources(resources);
+        logger.info("Loading main fxml from file");
+        return new Scene(loader.load());
     }
 
-    private Parent loadFXMLForm(ResourceBundle resources) throws IOException {
-        return FXMLLoader.load(getClass().getResource(MAIN_VIEW_FXML_LOCATION), resources);
+    private FXMLLoader loadFXMLForm(ResourceBundle resources) throws IOException {
+        return new FXMLLoader(getClass().getResource(MAIN_VIEW_FXML_LOCATION), resources);
     }
 
     private void setStyleSheet(Scene scene) {
