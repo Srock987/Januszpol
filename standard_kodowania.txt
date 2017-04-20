@@ -1,0 +1,5 @@
+Nazwy klas i zmiennych po angielsku, z zastosowaniem "camel case".
+Komentarze w języku polskim.
+Klamry w tej samej lini.
+Szerokość tabulacji: 4 spacje.
+NIE STOSUJEMY NOTACJI WEGIERSKIEJ!!!
