@@ -5,6 +5,7 @@
 
  # Intellij
  .idea/
+.idea/*
  *.iml
  *.iws
 
@@ -14,4 +15,5 @@
  # Maven
  log/
  target/
-
+ xp.iml
+ target/*
