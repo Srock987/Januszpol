@@ -5,6 +5,7 @@ import pl.edu.agh.eaiib.io.xp.utils.DataSaver;
 
 import java.io.Serializable;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
