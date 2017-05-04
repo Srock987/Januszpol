@@ -1,39 +1,34 @@
+import org.junit.Assert;
 import org.junit.Test;
 import pl.edu.agh.eaiib.io.xp.utils.DataSaver;
-import pl.edu.agh.eaiib.io.xp.utils.DataSaverInterface;
 
+import java.io.IOException;
 import java.io.Serializable;
+import static org.junit.Assert.*;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-/**
- * Created by HP on 2017-04-20.
- */
-public class DateSaverTest implements Serializable{
-
-
-    @Test
-    public void testSaving() {
-
-        class Test implements DataSaverInterface{
-
-            @Override
-            public String getFileName() {
-                return "data.dat";
-            }
-        }
-
-        class Test2 implements DataSaverInterface{
-
-            @Override
-            public String getFileName() {
-                return null;
-            }
-        }
-
-        assertTrue(DataSaver.saveData(new Test()));
-        assertFalse(DataSaver.saveData(new Test2()));
+public class DateSaverTest {
+    @Test(expected=IllegalArgumentException.class)
+    public void saveData_onEmptyFileName_throwsException() {
+        Serializable obj = new Serializable() {};
+        DataSaver saver = new DataSaver();
+        saver.saveData("", obj);
     }
 
+    class DataSaverMock extends DataSaver {
+        public boolean called = false;
+        @Override
+        protected void writeDataToFile(String fileName, Serializable object) throws IOException {
+            this.called = true;
+        }
+    }
+
+    @Test
+    public void saveData_onValidFileName_invokesSave() {
+        Serializable obj = new Serializable() {};
+        DataSaverMock saver = new DataSaverMock();
+        saver.saveData("data.obj", obj);
+        Assert.assertTrue(saver.called);
+    }
 }
+
+
