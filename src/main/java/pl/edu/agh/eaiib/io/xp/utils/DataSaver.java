@@ -7,23 +7,24 @@ import java.io.*;
  */
 public class DataSaver {
 
-    public static boolean saveData(DataSaverInterface object){
+    public static boolean saveData(DataSaverInterface object) {
 
-        FileOutputStream fos = null;
+        boolean isSuccess = false;
+        if(object.getFileName()==null)
+            return false;
+
         try {
-            fos = new FileOutputStream(object.getFileName());
+            FileOutputStream fos = new FileOutputStream(object.getFileName());
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(object);
             oos.close();
+            isSuccess = true;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        if (fos == null)
-            return false;
-        else
-            return true;
+        return isSuccess;
     }
 }
