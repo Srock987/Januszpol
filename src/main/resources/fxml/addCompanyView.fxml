@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="addCompanyAnchorView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="323.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.eaiib.io.xp.controllers.AddCompanyController">
+   <children>
+         <Label fx:id="newCompanyTitleLabel" layoutX="32.0" layoutY="30.0" prefHeight="21.0" prefWidth="298.0" text="Label" />
+      <TextField fx:id="newCompanyNameTextField" layoutX="117.0" layoutY="108.0" />
+      <TextField fx:id="newCompanyAddressTextField" layoutX="117.0" layoutY="168.0" />
+      <Button fx:id="newCompanyAddButton" contentDisplay="CENTER" layoutX="155.0" layoutY="238.0" mnemonicParsing="false" onAction="#onAddCompanyButtonClick" prefHeight="31.0" prefWidth="110.0" text="Button" />
+      <Label fx:id="newCompanyNameLabel" layoutX="117.0" layoutY="87.0" prefHeight="21.0" prefWidth="187.0" text="Label" textAlignment="RIGHT" AnchorPane.rightAnchor="116.0" />
+      <Label fx:id="newCompanyAddressLabel" layoutX="117.0" layoutY="147.0" prefHeight="21.0" prefWidth="187.0" text="Label" textAlignment="RIGHT" />
+   </children>
+</AnchorPane>

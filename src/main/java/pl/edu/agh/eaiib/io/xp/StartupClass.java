@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 
 public class StartupClass extends Application {
+
     private static final Logger logger = LoggerFactory.getLogger(StartupClass.class);
     private static final String APP_NAME_RESOURCE_KEY = "labels.app.name";
     private static final String MAIN_VIEW_FXML_LOCATION = "/fxml/mainView.fxml";
