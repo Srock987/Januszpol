@@ -1,12 +1,13 @@
 package pl.edu.agh.eaiib.io.xp.model;
 
 public class Company {
+
     private String name;
     private String address;
 
     public Company(String name, String address) {
-        this.name = name;
-        this.address = address;
+        setName(name);
+        setAddress(address);
     }
 
     public String getName() {
@@ -14,6 +15,12 @@ public class Company {
     }
 
     public void setName(String name) {
+        if(name == null || name.isEmpty()){
+            throw new RuntimeException("Company name is empty.");
+        }
+        if(name.length() < 3 || name.length() > 70){
+            throw new RuntimeException("Company name is min 3 and max 70 signs.");
+        }
         this.name = name;
     }
 
@@ -22,6 +29,12 @@ public class Company {
     }
 
     public void setAddress(String address) {
+        if(address == null || address.isEmpty()){
+            throw new RuntimeException("Address is empty.");
+        }
+        if(address.length() < 3 || address.length() > 70){
+            throw new RuntimeException("Address is min 3 and max 70 signs.");
+        }
         this.address = address;
     }
 
