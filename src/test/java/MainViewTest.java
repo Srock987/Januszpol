@@ -13,11 +13,13 @@ public class MainViewTest extends ApplicationTest {
         startupClass.start(stage);
     }
 
-    @Test public void should_contain_title_label() {
+    @Test
+    public void should_contain_title_label() {
         verifyThat("#titleLabel", hasText("Rejestrator czasu pracy".toUpperCase()));
     }
 
-    @Test public void should_contain_buttons() {
+    @Test
+    public void should_contain_buttons() {
         verifyThat("#addCompanyButton", hasText("Dodaj firmę"));
         verifyThat("#addNoteButton", hasText("Dodaj wpis"));
         verifyThat("#viewAllButton", hasText("Zobacz wpisy"));

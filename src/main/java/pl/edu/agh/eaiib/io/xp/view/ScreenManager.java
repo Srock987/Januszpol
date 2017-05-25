@@ -17,6 +17,8 @@ public class ScreenManager {
     public static final String MAIN_VIEW_FXML = "/fxml/mainView.fxml";
     public static final String ADD_COMPANY_VIEW_ID = "addCompanyView";
     public static final String ADD_COMPANY_VIEW_FXML = "/fxml/addCompanyView.fxml";
+    public static final String ALL_COMPANIES_VIEW_ID = "allCompaniesView";
+    public static final String ALL_COMPANIES_VIEW_FXML = "/fxml/viewAllCompanies.fxml";
 
     private static final ScreenManager INSTANCE = new ScreenManager();
 
@@ -28,6 +30,12 @@ public class ScreenManager {
 
     private ScreenManager() {
         screensController = new ScreensController();
+    }
+
+    public void initialize() {
+        loadScreen(MAIN_VIEW_ID, MAIN_VIEW_FXML);
+        loadScreen(ADD_COMPANY_VIEW_ID, ADD_COMPANY_VIEW_FXML);
+        loadScreen(ALL_COMPANIES_VIEW_ID, ALL_COMPANIES_VIEW_FXML);
     }
 
     public boolean loadScreen(String name, String resource) {
