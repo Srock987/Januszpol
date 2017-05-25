@@ -6,12 +6,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import pl.edu.agh.eaiib.io.xp.data.Database;
 import pl.edu.agh.eaiib.io.xp.model.Company;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AddCompanyController implements Initializable{
+public class AddCompanyController implements Initializable {
 
     private static final String ADD_COMPANY_TITLE = "labels.add_company.title";
     private static final String COMPANY_NAME_LABEL = "labels.add_company.company_name";
@@ -44,12 +45,12 @@ public class AddCompanyController implements Initializable{
         newCompanyAddButton.setText(resources.getString(ADD_BUTTON_TEXT));
     }
 
-
     @FXML
-    public void onAddCompanyButtonClick(ActionEvent e){
-        String companyName = newCompanyNameLabel.getText();
-        String address = newCompanyAddressLabel.getText();
+    public void onAddCompanyButtonClick(ActionEvent e) throws Throwable {
+        String companyName = newCompanyNameTextField.getText();
+        String address = newCompanyAddressTextField.getText();
         Company newCompany = new Company(companyName, address);
-        //TODO: save company
+        Database.getCompanyList().add(newCompany);
+        Database.save();
     }
 }

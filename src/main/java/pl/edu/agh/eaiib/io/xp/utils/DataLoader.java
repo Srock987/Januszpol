@@ -6,15 +6,15 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 public class DataLoader<T> {
+
     public ArrayList<T> loadData(String fileName) {
         if (fileName.isEmpty())
             throw new IllegalArgumentException("File name is empty!");
-
         try {
             return this.readDataFromFile(fileName);
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            //e.printStackTrace();
+            return new ArrayList<>();
         }
     }
 
