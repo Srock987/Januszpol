@@ -1,6 +1,5 @@
 package pl.edu.agh.eaiib.io.xp.controllers;
 
-import io.datafx.controller.FXMLController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
