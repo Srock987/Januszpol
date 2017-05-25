@@ -1,14 +1,11 @@
 package pl.edu.agh.eaiib.io.xp.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
+import pl.edu.agh.eaiib.io.xp.view.ScreenManager;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -18,10 +15,6 @@ public class MainViewController implements Initializable {
     private static final String BUTTON_ADD_NOTE_RESOURCE_KEY = "buttons.add.note";
     private static final String BUTTON_VIEW_ALL_RESOURCE_KEY = "buttons.view.all";
     private static final String BUTTON_GENERATE_REPORT_RESOURCE_KEY = "buttons.generate.report";
-    private static final String ADD_COMPANY_VIEW_FXML = "/fxml/addCompanyView.fxml";
-
-    private Stage stage;
-    private ResourceBundle resources;
 
     @FXML
     Label titleLabel;
@@ -47,19 +40,8 @@ public class MainViewController implements Initializable {
         generateReportButton.setText(resources.getString(BUTTON_GENERATE_REPORT_RESOURCE_KEY));
     }
 
-    public void openAddCompanyView(ActionEvent actionEvent) {
-        try {
-            FXMLLoader.load(getClass().getResource(ADD_COMPANY_VIEW_FXML), resources);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void openAddCompanyView() {
+        ScreenManager.getInstance().setScreen(ScreenManager.ADD_COMPANY_VIEW_ID);
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
-    public void setResources(ResourceBundle resources) {
-        this.resources = resources;
-    }
 }

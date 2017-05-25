@@ -2,6 +2,7 @@ import javafx.stage.Stage;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 import pl.edu.agh.eaiib.io.xp.StartupClass;
+import pl.edu.agh.eaiib.io.xp.view.ScreenManager;
 
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.base.NodeMatchers.isVisible;
@@ -15,21 +16,20 @@ public class MainViewTest extends ApplicationTest {
     }
 
     @Test
-    public void should_contain_title_label() {
+    public void should_contain_labels_and_buttons() {
+        should_contain_title_label();
+        should_contain_buttons();
+    }
+
+    private void should_contain_title_label() {
         verifyThat("#titleLabel", hasText("Rejestrator czasu pracy".toUpperCase()));
     }
 
-    @Test
-    public void should_contain_buttons() {
+    private void should_contain_buttons() {
         verifyThat("#addCompanyButton", hasText("Dodaj firmę"));
         verifyThat("#addNoteButton", hasText("Dodaj wpis"));
         verifyThat("#viewAllButton", hasText("Zobacz wpisy"));
         verifyThat("#generateReportButton", hasText("Generuj raport"));
     }
 
-    @Test
-    public void button_should_navigate() {
-        clickOn("#addCompanyButton");
-        verifyThat("#addCompanyPane", isVisible());
-    }
 }

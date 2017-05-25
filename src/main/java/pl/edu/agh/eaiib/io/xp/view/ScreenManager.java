@@ -44,7 +44,7 @@ public class ScreenManager {
         return screensController.getActiveView();
     }
 
-    public Node getContainer() {
+    public Parent getContainer() {
         return screensController;
     }
 
