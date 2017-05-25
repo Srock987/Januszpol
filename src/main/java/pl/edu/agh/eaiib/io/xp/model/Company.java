@@ -1,6 +1,8 @@
 package pl.edu.agh.eaiib.io.xp.model;
 
-public class Company {
+import java.io.Serializable;
+
+public class Company implements Serializable {
     private String name;
     private String address;
 
