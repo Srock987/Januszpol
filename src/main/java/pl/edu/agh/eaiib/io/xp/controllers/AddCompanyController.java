@@ -19,6 +19,7 @@ public class AddCompanyController implements Initializable {
     private static final String COMPANY_NAME_LABEL = "labels.add_company.company_name";
     private static final String ADDRESS_LABEL = "labels.add_company.address";
     private static final String ADD_BUTTON_TEXT = "buttons.add_company.submit";
+    private static final String CANCEL_BUTTON_TEXT = "buttons.add_company.cancel";
 
     @FXML
     Label newCompanyTitleLabel;
@@ -33,6 +34,9 @@ public class AddCompanyController implements Initializable {
     Button newCompanyAddButton;
 
     @FXML
+    Button newCompanyCancelButton;
+
+    @FXML
     TextField newCompanyNameTextField;
 
     @FXML
@@ -44,6 +48,7 @@ public class AddCompanyController implements Initializable {
         newCompanyNameLabel.setText(resources.getString(COMPANY_NAME_LABEL));
         newCompanyAddressLabel.setText(resources.getString(ADDRESS_LABEL));
         newCompanyAddButton.setText(resources.getString(ADD_BUTTON_TEXT));
+        newCompanyCancelButton.setText(resources.getString(CANCEL_BUTTON_TEXT));
     }
 
     @FXML
@@ -52,6 +57,11 @@ public class AddCompanyController implements Initializable {
         String address = newCompanyAddressTextField.getText();
         Company newCompany = new Company(companyName, address);
         Database.getCompanyList().add(newCompany);
+        ScreenManager.getInstance().setScreen(ScreenManager.MAIN_VIEW_ID);
+    }
+
+    @FXML
+    public void onCancelButtonClick(ActionEvent e) throws Throwable {
         ScreenManager.getInstance().setScreen(ScreenManager.MAIN_VIEW_ID);
     }
 }

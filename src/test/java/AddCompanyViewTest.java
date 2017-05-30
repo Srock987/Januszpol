@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 import pl.edu.agh.eaiib.io.xp.StartupClass;
+import pl.edu.agh.eaiib.io.xp.view.ScreenManager;
 
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
@@ -26,11 +27,9 @@ public class AddCompanyViewTest extends ApplicationTest {
     public void start(Stage stage) throws Exception {
         StartupClass startupClass = new StartupClass();
         startupClass.start(stage);
-    }
 
-    @Before
-    public void openAddCompanyView(){
-        clickOn("#addCompanyButton");
+        ScreenManager
+            .getInstance().setScreen(ScreenManager.ADD_COMPANY_VIEW_ID);
     }
 
     @Test

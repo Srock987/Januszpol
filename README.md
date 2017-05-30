@@ -2,7 +2,7 @@
 ### Historyjki
 Nr | Opis zadania | Notatki | Opis testu akceptacyjnego | Osoba przydzielona | Zrobione
 --- | --- | --- | --- | --- | ---
-1 |Zapisanie firm, dla których pracuje programista. | Format zapisu: nazwa firmy, adres. | w formularzu mam możliwość wpisania nazwy i adreus firmy, po wpisaniu danych i naciśnięciu "zapisz"firma zostaje dodana do listy firm, po wciśnięcu "anuluj" formularz zostaje zamknięty, a zmiany nie są zapisane. | ? | Nie
+1 |Zapisanie firm, dla których pracuje programista. | Format zapisu: nazwa firmy, adres. | w formularzu mam możliwość wpisania nazwy i adreus firmy, po wpisaniu danych i naciśnięciu "zapisz"firma zostaje dodana do listy firm, po wciśnięcu "anuluj" formularz zostaje zamknięty, a zmiany nie są zapisane. | ? | Tak
 2 | Możliwość dodania czasu pracy, który zostaje zapamiętany. | Użytkownik może wybrać firmę z listy zapisanych wcześniej firm, w ciągu dnia liczonego od północy do północy. | w funkcjonalności "dodaj nowe godziny" wybieram firmę z listy firm i wpisuję liczbę godzin, liczba godzin zostaje zapisana po wciśnięciu "zapisz", zmiana wyświetla się na górze listy ostatnich zadań. | ? | Nie
 3 | Wyświetlanie czasu pracy (wszystkich wprowadzonych danych w postaci listy) | | Po uruchomieniu programu widzę listę z ostation dodanymi godzinami/firmami, lista jest aktualizowana po każdej wprowadzonej zmianie (dodaniu /edycji godzin), nowe zapisane godziny pojawiają sie na górze listy. | ? | Nie
 4 | Sumowanie czasu pracy poświęconego na daną firmę. | Od początku. | Po wybraniu na liście przepracowanych godzin *<słowo nieczytelne>* pokazującego godziny danej firmy nad listą widzę wynik sumy wszystkich przepracowanych godzin dla tej firmy, wynik jest poprawny. | ? | NIe
