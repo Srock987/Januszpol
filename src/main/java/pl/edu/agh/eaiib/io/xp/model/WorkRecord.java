@@ -2,9 +2,6 @@ package pl.edu.agh.eaiib.io.xp.model;
 
 import java.io.Serializable;
 
-/**
- * Created by frben on 25.05.2017.
- */
 public class WorkRecord implements Serializable {
 
     private Company company;

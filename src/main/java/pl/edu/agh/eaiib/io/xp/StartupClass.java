@@ -41,6 +41,7 @@ public class StartupClass extends Application {
 
         primaryStage.setTitle(appTitle);
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
         logger.info("Main window showed");
     }
