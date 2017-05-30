@@ -21,6 +21,8 @@ public class ScreenManager {
 
     private static final ScreenManager INSTANCE = new ScreenManager();
 
+    private static Map<String, String> viewsMap = new HashMap<>();
+
     private final ScreensController screensController;
 
     public static ScreenManager getInstance() {
@@ -32,9 +34,12 @@ public class ScreenManager {
     }
 
     public void initialize() {
-        loadScreen(MAIN_VIEW_ID, MAIN_VIEW_FXML);
-        loadScreen(ADD_COMPANY_VIEW_ID, ADD_COMPANY_VIEW_FXML);
-        loadScreen(ALL_COMPANIES_VIEW_ID, ALL_COMPANIES_VIEW_FXML);
+        viewsMap.put(MAIN_VIEW_ID, MAIN_VIEW_FXML);
+        viewsMap.put(ADD_COMPANY_VIEW_ID, ADD_COMPANY_VIEW_FXML);
+        viewsMap.put(ALL_COMPANIES_VIEW_ID, ALL_COMPANIES_VIEW_FXML);
+        for (Map.Entry<String, String> entry : viewsMap.entrySet()){
+            loadScreen(entry.getKey(), entry.getValue());
+        }
     }
 
     private boolean loadScreen(String name, String resource) {
@@ -94,10 +99,17 @@ public class ScreenManager {
             if (getChildren().isEmpty()) {
                 getChildren().add(screens.get(name));
             } else {
+                reloadScreen(name);
                 getChildren().remove(0);
                 getChildren().add(0, screens.get(name));
             }
             return true;
+        }
+
+        private void reloadScreen(String screenId){
+            String viewFxml = ScreenManager.viewsMap.get(screenId);
+            ResourceBundle bundle = ResourceUtils.loadLabelsForDefaultLocale();
+            loadScreen(screenId, viewFxml, bundle);
         }
 
         private String getActiveView() {
