@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.media.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.eaiib.io.xp.controllers.ViewAllController">
    <children>
-      <ListView fx:id="companiesList" layoutX="32.0" layoutY="65.0" prefHeight="268.0" prefWidth="544.0" />
       <Label fx:id="titleLabel" layoutX="85.0" layoutY="31.0" text="Label" />
-      <Button fx:id="backButton" layoutX="492.0" layoutY="361.0" mnemonicParsing="false" text="Button" onAction="#onBackButtonClick" />
+      <Button fx:id="backButton" layoutX="492.0" layoutY="361.0" mnemonicParsing="false" onAction="#onBackButtonClick" text="Button" />
+      <TableView fx:id="companiesList" editable="true" layoutX="39.0" layoutY="56.0" prefHeight="291.0" prefWidth="515.0">
+        <columns>
+          <TableColumn fx:id="companyNameColumn" prefWidth="185.0" text="C1" />
+          <TableColumn fx:id="companyAddressColumn" prefWidth="329.0" text="C2" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
    </children>
 </AnchorPane>

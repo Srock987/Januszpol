@@ -3,10 +3,10 @@ package pl.edu.agh.eaiib.io.xp.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import pl.edu.agh.eaiib.io.xp.model.Company;
+import pl.edu.agh.eaiib.io.xp.view.ScreenManager;
 
 import java.net.URL;
 import java.util.ResourceBundle;

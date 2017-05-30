@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,11 @@ public class StartupClass extends Application {
         ScreenManager screenManager = ScreenManager.getInstance();
         screenManager.initialize();
 
-        Scene scene = new Scene(screenManager.getContainer());
+        BorderPane borderPane = new BorderPane();
+        borderPane.setTop(screenManager.getMenuBar());
+        borderPane.setCenter(screenManager.getContainer());
+
+        Scene scene = new Scene(borderPane);
         screenManager.setScreen(ScreenManager.MAIN_VIEW_ID);
         ResourceBundle resources = ResourceUtils.loadLabelsForDefaultLocale();
         String appTitle = resources.getString(APP_NAME_RESOURCE_KEY);
