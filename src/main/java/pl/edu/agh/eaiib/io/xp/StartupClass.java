@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.edu.agh.eaiib.io.xp.data.Database;
 import pl.edu.agh.eaiib.io.xp.utils.ResourceUtils;
 
 import java.io.IOException;
@@ -55,5 +56,15 @@ public class StartupClass extends Application {
     private void setStyleSheet(Scene scene) {
         String css = this.getClass().getResource(CSS_STYLESHEET_LOCATION).toExternalForm();
         scene.getStylesheets().add(css);
+    }
+
+    @Override
+    public void stop() throws Exception {
+        try {
+            Database.saveData();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+        super.stop();
     }
 }

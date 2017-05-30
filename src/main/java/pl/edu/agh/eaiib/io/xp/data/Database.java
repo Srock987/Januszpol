@@ -23,29 +23,25 @@ public class Database {
         DataLoader<WorkRecord> workRecordDataLoader = new DataLoader<>();
         companyList = companyDataLoader.loadData(COMPANY_FILE_NAME);
         workRecords = workRecordDataLoader.loadData(WORKRECORD_FILE_NAME);
+    }
 
-        for (Company company : companyList) {
-            System.out.println(company.getName());
-        }
+    public static void addCompany(Company company){
+        companyList.add(company);
+    }
+
+    public static void addWorkRecord(WorkRecord workRecord){
+        workRecords.add(workRecord);
     }
 
     public static ArrayList<Company> getCompanyList() {
         return companyList;
     }
 
-    public static void setCompanyList(ArrayList<Company> companyList) {
-        Database.companyList = companyList;
-    }
-
     public static ArrayList<WorkRecord> getWorkRecords() {
         return workRecords;
     }
 
-    public static void setWorkRecords(ArrayList<WorkRecord> workRecords) {
-        Database.workRecords = workRecords;
-    }
-
-    public static void save() throws Throwable {
+    public static void saveData() throws Throwable {
         DataSaver dataSaver = new DataSaver();
         dataSaver.saveData(WORKRECORD_FILE_NAME, workRecords);
         dataSaver.saveData(COMPANY_FILE_NAME, companyList);
