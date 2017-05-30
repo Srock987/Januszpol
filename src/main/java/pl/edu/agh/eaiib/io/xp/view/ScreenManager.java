@@ -3,20 +3,21 @@ package pl.edu.agh.eaiib.io.xp.view;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.StackPane;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import pl.edu.agh.eaiib.io.xp.utils.ResourceUtils;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ScreenManager {
     public static final String MAIN_VIEW_ID = "mainView";
     public static final String MAIN_VIEW_FXML = "/fxml/mainView.fxml";
     public static final String ADD_COMPANY_VIEW_ID = "addCompanyView";
     public static final String ADD_COMPANY_VIEW_FXML = "/fxml/addCompanyView.fxml";
+    public static final String ALL_COMPANIES_VIEW_ID = "allCompaniesView";
+    public static final String ALL_COMPANIES_VIEW_FXML = "/fxml/viewAllCompanies.fxml";
 
     private static final ScreenManager INSTANCE = new ScreenManager();
 
@@ -30,13 +31,18 @@ public class ScreenManager {
         screensController = new ScreensController();
     }
 
-    public boolean loadScreen(String name, String resource) {
+    public void initialize() {
+        loadScreen(MAIN_VIEW_ID, MAIN_VIEW_FXML);
+        loadScreen(ADD_COMPANY_VIEW_ID, ADD_COMPANY_VIEW_FXML);
+        loadScreen(ALL_COMPANIES_VIEW_ID, ALL_COMPANIES_VIEW_FXML);
+    }
+
+    private boolean loadScreen(String name, String resource) {
         ResourceBundle bundle = ResourceUtils.loadLabelsForDefaultLocale();
         return screensController.loadScreen(name, resource, bundle);
     }
 
     public boolean setScreen(String name) {
-
         return screensController.setScreen(name);
     }
 
@@ -48,10 +54,26 @@ public class ScreenManager {
         return screensController;
     }
 
-    private static final class ScreensController extends StackPane {
-        private static final Logger logger = LoggerFactory.getLogger(ScreensController.class);
+    public Node getMenuBar() {
+        List<MenuItem> menuItemsList = new ArrayList<>();
+        screensController.screens.keySet().forEach(screenId -> menuItemsList.add(createMenuItem(screenId)));
+        Menu menu = new Menu("Widok");
+        menu.getItems().addAll(menuItemsList);
+        MenuBar menuBar = new MenuBar();
+        menuBar.getMenus().add(menu);
+        return menuBar;
+    }
 
-        private Map<String, Node> screens = new HashMap<>();
+    private MenuItem createMenuItem(String screenId) {
+        ResourceBundle resources = ResourceUtils.loadLabelsForDefaultLocale();
+        String menuText = resources.getString(screenId);
+        MenuItem menuItem = new MenuItem(menuText);
+        menuItem.setOnAction(event -> setScreen(screenId));
+        return menuItem;
+    }
+
+    private static final class ScreensController extends StackPane {
+        private Map<String, Node> screens = new LinkedHashMap<>();
 
         private void addScreen(String name, Node screen) {
             screens.put(name, screen);

@@ -6,9 +6,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import pl.edu.agh.eaiib.io.xp.data.Database;
 import pl.edu.agh.eaiib.io.xp.model.Company;
+import pl.edu.agh.eaiib.io.xp.view.ScreenManager;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -38,9 +38,6 @@ public class AddCompanyController implements Initializable {
     @FXML
     TextField newCompanyAddressTextField;
 
-    @FXML
-    AnchorPane addCompanyAnchorPane;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         newCompanyTitleLabel.setText(resources.getString(ADD_COMPANY_TITLE));
@@ -55,6 +52,6 @@ public class AddCompanyController implements Initializable {
         String address = newCompanyAddressTextField.getText();
         Company newCompany = new Company(companyName, address);
         Database.getCompanyList().add(newCompany);
-        addCompanyAnchorPane.getScene().getWindow().hide();
+        ScreenManager.getInstance().setScreen(ScreenManager.MAIN_VIEW_ID);
     }
 }

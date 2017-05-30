@@ -1,17 +1,13 @@
 package pl.edu.agh.eaiib.io.xp.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.edu.agh.eaiib.io.xp.view.ScreenManager;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -48,17 +44,11 @@ public class MainViewController implements Initializable {
         generateReportButton.setText(resources.getString(BUTTON_GENERATE_REPORT_RESOURCE_KEY));
     }
 
-    @FXML
-    public void onAddCompanyButtonClick(ActionEvent e){
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addCompanyView.fxml"));
-            fxmlLoader.setResources(ResourceBundle.getBundle("messages.Messages"));
-            Stage stage = new Stage();
-            stage.setScene(new Scene(fxmlLoader.load()));
-            stage.show();
-        } catch (IOException exc) {
-            logger.error("Error during loading addCompanyView, " + exc.getMessage());
-            exc.printStackTrace();
-        }
+    public void onAddCompanyButtonClick(){
+        ScreenManager.getInstance().setScreen(ScreenManager.ADD_COMPANY_VIEW_ID);
+    }
+
+    public void onViewAllButtonClick() {
+        ScreenManager.getInstance().setScreen(ScreenManager.ALL_COMPANIES_VIEW_ID);
     }
 }
