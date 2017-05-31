@@ -1,17 +1,27 @@
 package pl.edu.agh.eaiib.io.xp.controllers;
 
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableListBase;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.*;
 import pl.edu.agh.eaiib.io.xp.data.Database;
 import pl.edu.agh.eaiib.io.xp.model.Company;
+import pl.edu.agh.eaiib.io.xp.model.WorkRecord;
 import pl.edu.agh.eaiib.io.xp.view.ScreenManager;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+
+import static pl.edu.agh.eaiib.io.xp.data.Database.getCompanyList;
 
 public class AddWorkRecordController implements Initializable {
     private static final String ADD_WORK_RECORD_VIEW_TITLE = "labels.add_work_record.title";
@@ -39,13 +49,101 @@ public class AddWorkRecordController implements Initializable {
     @FXML
     Button cancelButton;
 
+    @FXML
+    ComboBox<String> companyComboBox;
+
+    @FXML
+    DatePicker datePicker;
+
+    @FXML
+    Spinner<Integer> hoursSpinner;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initializeWidgetsText(resources);
+        loadCompanies();
+        loadHours();
+    }
+
+    private void initializeWidgetsText(ResourceBundle resources) {
         titleLabel.setText(resources.getString(ADD_WORK_RECORD_VIEW_TITLE));
         selectCompanyLabel.setText(resources.getString(COMPANY_LABEL));
         selectDateLabel.setText(resources.getString(DATE_LABEL));
         selectHoursLabel.setText(resources.getString(HOURS_LABEL));
         saveButton.setText(resources.getString(SAVE_BUTTON));
         cancelButton.setText(resources.getString(CANCEL_BUTTON));
+    }
+
+    private void loadCompanies() {
+        this.companyComboBox.getItems().removeAll(this.companyComboBox.getItems());
+        List<Company> companies = Database.getCompanyList();
+        for (Company c : companies)
+            this.companyComboBox.getItems().add(c.getName());
+    }
+
+    private void loadHours() {
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 24, 1);
+        hoursSpinner.setValueFactory(valueFactory);
+    }
+
+    @FXML
+    public void onCancelButtonClicked(ActionEvent e) {
+        this.goToMainView();
+    }
+
+    private void goToMainView() {
+        ScreenManager.getInstance().setScreen(ScreenManager.MAIN_VIEW_ID);
+    }
+
+    @FXML
+    public void onSaveButtonClicked(ActionEvent e) {
+        String companyName = this.companyComboBox.getSelectionModel().getSelectedItem();
+        int hours = this.hoursSpinner.getValue();
+        LocalDate localDate = this.datePicker.getValue();
+
+        try {
+            // TODO zrobić walidację
+            Company company = this.findCompany(companyName);
+            WorkRecord workRecord = new WorkRecord(company, hours, localDate);
+            Database.addWorkRecord(workRecord);
+            this.showInfoDialog("Dodano wpis lamusie");
+            this.goToMainView();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            this.showErrorDialog("Wystąpił błąd");
+        }
+    }
+
+    private Company findCompany(String companyName) {
+        ArrayList<Company> companies =  Database.getCompanyList();
+        List<Company> matchingCompanies = companies.stream().filter(company -> company.getName().equals(companyName))
+                                                    .collect(Collectors.toList());
+        return matchingCompanies.get(0);
+    }
+
+    private void showInfoDialog(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Message Here...");
+        alert.setContentText(message);
+        alert.showAndWait().ifPresent(rs -> {
+            if (rs == ButtonType.OK) {
+                System.out.println("Pressed OK.");
+            }
+        });
+    }
+
+    private void showErrorDialog(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Message Here...");
+        alert.setContentText(message);
+        alert.showAndWait().ifPresent(rs -> {
+            if (rs == ButtonType.OK) {
+                System.out.println("Pressed OK.");
+            }
+        });
+    }
+
+    private void goToWorkRecordsList() {
+
     }
 }
