@@ -35,7 +35,7 @@ public class StartupClass extends Application {
         borderPane.setCenter(screenManager.getContainer());
 
         Scene scene = new Scene(borderPane);
-        screenManager.setScreen(ScreenManager.MAIN_VIEW_ID);
+        screenManager.setScreen(ScreenManager.WORK_RECORD_VIEW_ID);
         ResourceBundle resources = ResourceUtils.loadLabelsForDefaultLocale();
         String appTitle = resources.getString(APP_NAME_RESOURCE_KEY);
 
