@@ -20,6 +20,8 @@ public class ScreenManager {
     public static final String ALL_COMPANIES_VIEW_FXML = "/fxml/viewAllCompanies.fxml";
     public static final String ADD_WORK_RECORD_VIEW_ID = "addWorkRecordView";
     public static final String ADD_WORK_RECORD_VIEW_FXML = "/fxml/addWorkRecordView.fxml";
+    public static final String WORK_RECORD_VIEW_ID = "workRecordsView";
+    public static final String WORK_RECORD_VIEW_FXML = "/fxml/viewAllWorkRecords.fxml";
 
     private static final ScreenManager INSTANCE = new ScreenManager();
 
@@ -40,6 +42,7 @@ public class ScreenManager {
         viewsMap.put(ADD_COMPANY_VIEW_ID, ADD_COMPANY_VIEW_FXML);
         viewsMap.put(ALL_COMPANIES_VIEW_ID, ALL_COMPANIES_VIEW_FXML);
         viewsMap.put(ADD_WORK_RECORD_VIEW_ID, ADD_WORK_RECORD_VIEW_FXML);
+        viewsMap.put(WORK_RECORD_VIEW_ID, WORK_RECORD_VIEW_FXML);
         for (Map.Entry<String, String> entry : viewsMap.entrySet()){
             loadScreen(entry.getKey(), entry.getValue());
         }
@@ -65,7 +68,7 @@ public class ScreenManager {
     public Node getMenuBar() {
         List<MenuItem> menuItemsList = new ArrayList<>();
         screensController.screens.keySet().forEach(screenId -> menuItemsList.add(createMenuItem(screenId)));
-        Menu menu = new Menu("Widok");
+        Menu menu = new Menu("Menu");
         menu.getItems().addAll(menuItemsList);
         MenuBar menuBar = new MenuBar();
         menuBar.getMenus().add(menu);
@@ -94,6 +97,7 @@ public class ScreenManager {
                 addScreen(name, loadScreen);
                 return true;
             } catch (Exception e) {
+                e.printStackTrace();
                 return false;
             }
         }

@@ -38,4 +38,8 @@ public class WorkRecord implements Serializable {
     public void setDate(LocalDate date) {
         this.date = date;
     }
+
+    public String getCompanyName() {
+        return this.company.getName();
+    }
 }
