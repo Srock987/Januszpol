@@ -21,7 +21,7 @@ public class MainViewTest extends ApplicationTest {
     @Test
     public void should_contain_buttons() {
         verifyThat("#addCompanyButton", hasText("Dodaj firmę"));
-        verifyThat("#addNoteButton", hasText("Dodaj wpis"));
+        verifyThat("#addWorkRecordButton", hasText("Dodaj wpis"));
         verifyThat("#viewAllButton", hasText("Zobacz wpisy"));
         verifyThat("#generateReportButton", hasText("Generuj raport"));
     }

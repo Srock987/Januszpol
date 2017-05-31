@@ -30,7 +30,7 @@ public class MainViewController implements Initializable {
     Button viewAllButton;
 
     @FXML
-    Button addNoteButton;
+    Button addWorkRecordButton;
 
     @FXML
     Button generateReportButton;
@@ -39,7 +39,7 @@ public class MainViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         titleLabel.setText(resources.getString(APP_TITLE_RESOURCE_KEY).toUpperCase());
         addCompanyButton.setText(resources.getString(BUTTON_ADD_COMPANY_RESOURCE_KEY));
-        addNoteButton.setText(resources.getString(BUTTON_ADD_NOTE_RESOURCE_KEY));
+        addWorkRecordButton.setText(resources.getString(BUTTON_ADD_NOTE_RESOURCE_KEY));
         viewAllButton.setText(resources.getString(BUTTON_VIEW_ALL_RESOURCE_KEY));
         generateReportButton.setText(resources.getString(BUTTON_GENERATE_REPORT_RESOURCE_KEY));
     }
@@ -50,5 +50,9 @@ public class MainViewController implements Initializable {
 
     public void onViewAllButtonClick() {
         ScreenManager.getInstance().setScreen(ScreenManager.ALL_COMPANIES_VIEW_ID);
+    }
+
+    public void onAddWorkRecordButtonClick() {
+        ScreenManager.getInstance().setScreen(ScreenManager.ADD_WORK_RECORD_VIEW_ID);
     }
 }
