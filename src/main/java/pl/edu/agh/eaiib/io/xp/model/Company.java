@@ -17,10 +17,10 @@ public class Company implements Serializable {
 
     public void setName(String name) {
         if(name == null || name.isEmpty()){
-            throw new RuntimeException("Company name is empty.");
+            throw new RuntimeException("Nazwa firmy jest pusta.");
         }
         if(name.length() < 3 || name.length() > 70){
-            throw new RuntimeException("Company name is min 3 and max 70 signs.");
+            throw new RuntimeException("Nazwa firmy powinna zawierać od 3 do 70 znaków.");
         }
         this.name = name;
     }
@@ -31,10 +31,10 @@ public class Company implements Serializable {
 
     public void setAddress(String address) {
         if(address == null || address.isEmpty()){
-            throw new RuntimeException("Address is empty.");
+            throw new RuntimeException("Adres jest pusty.");
         }
         if(address.length() < 3 || address.length() > 70){
-            throw new RuntimeException("Address is min 3 and max 70 signs.");
+            throw new RuntimeException("Adres powinnien zawierać od 3 do 70 znaków.");
         }
         this.address = address;
     }
