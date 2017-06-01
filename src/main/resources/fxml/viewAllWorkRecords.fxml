@@ -15,9 +15,10 @@
             <TableView fx:id="workRecordsTableView" layoutX="24.0" layoutY="53.0" prefHeight="376.0" prefWidth="497.0">
                 <columns>
                     <TableColumn fx:id="companyNameColumn" prefWidth="160.0" text="Nazwa firmy" />
-                    <TableColumn fx:id="dateColumn" prefWidth="140.0" text="Data" />
-                    <TableColumn fx:id="hoursColumn" prefWidth="111.0" text="Liczba godzin" />
-                    <TableColumn fx:id="deleteColumn" prefWidth="75.0" text="Usuń" />
+                    <TableColumn fx:id="dateColumn" prefWidth="117.0" text="Data" />
+                    <TableColumn fx:id="hoursColumn" prefWidth="78.0" text="Godzin" />
+               <TableColumn fx:id="editColumn" prefWidth="72.0" text="Edytuj" />
+                    <TableColumn fx:id="deleteColumn" prefWidth="63.0" text="Usuń" />
                 </columns>
             </TableView>
             <Accordion layoutX="448.0" layoutY="39.0">

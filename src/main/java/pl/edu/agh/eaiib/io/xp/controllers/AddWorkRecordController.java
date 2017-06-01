@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import pl.edu.agh.eaiib.io.xp.data.Database;
 import pl.edu.agh.eaiib.io.xp.model.Company;
 import pl.edu.agh.eaiib.io.xp.model.WorkRecord;
+import pl.edu.agh.eaiib.io.xp.utils.InvalidValueException;
 import pl.edu.agh.eaiib.io.xp.view.ScreenManager;
 
 import java.net.URL;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class AddWorkRecordController implements Initializable {
+public class AddWorkRecordController extends AbstractController {
     private static final String ADD_WORK_RECORD_VIEW_TITLE = "labels.add_work_record.title";
     private static final String COMPANY_LABEL = "labels.add_work_record.company_label";
     private static final String DATE_LABEL = "labels.add_work_record.date_label";
@@ -85,7 +86,7 @@ public class AddWorkRecordController implements Initializable {
     }
 
     private void goToMainView() {
-        ScreenManager.getInstance().setScreen(ScreenManager.WORK_RECORD_VIEW_ID);
+        ScreenManager.getInstance().setScreen(ScreenManager.ALL_WORK_RECORDS_VIEW_ID);
     }
 
     @FXML

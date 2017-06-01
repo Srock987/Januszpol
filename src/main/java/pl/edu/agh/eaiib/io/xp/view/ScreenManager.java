@@ -5,32 +5,30 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
+import pl.edu.agh.eaiib.io.xp.controllers.AbstractController;
 import pl.edu.agh.eaiib.io.xp.utils.ResourceUtils;
 
 import java.util.*;
 
 public class ScreenManager {
     public static final String ADD_COMPANY_VIEW_ID = "addCompanyView";
-
     public static final String ADD_COMPANY_VIEW_FXML = "/fxml/addCompanyView.fxml";
-
-    public static final String ALL_COMPANIES_VIEW_ID = "allCompaniesView";
-
-    public static final String ALL_COMPANIES_VIEW_FXML = "/fxml/viewAllCompanies.fxml";
-
+    public static final String EDIT_COMPANY_VIEW_ID = "editCompanyView";
+    public static final String EDIT_COMPANY_VIEW_FXML = "/fxml/editCompanyView.fxml";
     public static final String ADD_WORK_RECORD_VIEW_ID = "addWorkRecordView";
-
     public static final String ADD_WORK_RECORD_VIEW_FXML = "/fxml/addWorkRecordView.fxml";
-
-    public static final String WORK_RECORD_VIEW_ID = "workRecordsView";
-
-    public static final String WORK_RECORD_VIEW_FXML = "/fxml/viewAllWorkRecords.fxml";
+    public static final String ALL_COMPANIES_VIEW_ID = "viewAllCompanies";
+    public static final String ALL_COMPANIES_VIEW_FXML = "/fxml/viewAllCompanies.fxml";
+    public static final String ALL_WORK_RECORDS_VIEW_ID = "viewAllWorkRecords";
+    public static final String ALL_WORK_RECORDS_VIEW_FXML = "/fxml/viewAllWorkRecords.fxml";
 
     private static final ScreenManager INSTANCE = new ScreenManager();
 
     private static Map<String, String> viewsMap = new HashMap<>();
 
     private final ScreensController screensController;
+
+    public static AbstractController currentController;
 
     public static ScreenManager getInstance() {
         return INSTANCE;
@@ -42,9 +40,10 @@ public class ScreenManager {
 
     public void initialize() {
         viewsMap.put(ADD_COMPANY_VIEW_ID, ADD_COMPANY_VIEW_FXML);
+        viewsMap.put(EDIT_COMPANY_VIEW_ID, EDIT_COMPANY_VIEW_FXML);
         viewsMap.put(ALL_COMPANIES_VIEW_ID, ALL_COMPANIES_VIEW_FXML);
         viewsMap.put(ADD_WORK_RECORD_VIEW_ID, ADD_WORK_RECORD_VIEW_FXML);
-        viewsMap.put(WORK_RECORD_VIEW_ID, WORK_RECORD_VIEW_FXML);
+        viewsMap.put(ALL_WORK_RECORDS_VIEW_ID, ALL_WORK_RECORDS_VIEW_FXML);
         for (Map.Entry<String, String> entry : viewsMap.entrySet()) {
             loadScreen(entry.getKey(), entry.getValue());
         }
@@ -69,9 +68,11 @@ public class ScreenManager {
 
     public Node getMenuBar() {
         List<MenuItem> menuItemsList = new ArrayList<>();
-        screensController.screens
-            .keySet()
-            .forEach(screenId -> menuItemsList.add(createMenuItem(screenId)));
+        menuItemsList.add(createMenuItem(ADD_COMPANY_VIEW_ID));
+        menuItemsList.add(createMenuItem(ADD_WORK_RECORD_VIEW_ID));
+        menuItemsList.add(createMenuItem(ALL_COMPANIES_VIEW_ID));
+        menuItemsList.add(createMenuItem(ALL_WORK_RECORDS_VIEW_ID));
+
         Menu menu = new Menu("Menu");
         menu
             .getItems()
@@ -85,7 +86,7 @@ public class ScreenManager {
 
     private MenuItem createMenuItem(String screenId) {
         ResourceBundle resources = ResourceUtils.loadLabelsForDefaultLocale();
-        String menuText = resources.getString(screenId);
+        String menuText = resources.getString("menu." + screenId);
         MenuItem menuItem = new MenuItem(menuText);
         menuItem.setOnAction(event -> setScreen(screenId));
         return menuItem;
@@ -139,6 +140,7 @@ public class ScreenManager {
             try {
                 FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource), resourceBundle);
                 Parent loadScreen = myLoader.load();
+                currentController = myLoader.getController();
                 addScreen(name, loadScreen);
                 return true;
             } catch (Exception e) {
@@ -171,7 +173,7 @@ public class ScreenManager {
                     return entry.getKey();
                 }
             }
-            return WORK_RECORD_VIEW_ID;
+            return ALL_WORK_RECORDS_VIEW_ID;
         }
     }
 }
