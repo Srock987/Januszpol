@@ -11,12 +11,19 @@ import java.util.*;
 
 public class ScreenManager {
     public static final String ADD_COMPANY_VIEW_ID = "addCompanyView";
+
     public static final String ADD_COMPANY_VIEW_FXML = "/fxml/addCompanyView.fxml";
+
     public static final String ALL_COMPANIES_VIEW_ID = "allCompaniesView";
+
     public static final String ALL_COMPANIES_VIEW_FXML = "/fxml/viewAllCompanies.fxml";
+
     public static final String ADD_WORK_RECORD_VIEW_ID = "addWorkRecordView";
+
     public static final String ADD_WORK_RECORD_VIEW_FXML = "/fxml/addWorkRecordView.fxml";
+
     public static final String WORK_RECORD_VIEW_ID = "workRecordsView";
+
     public static final String WORK_RECORD_VIEW_FXML = "/fxml/viewAllWorkRecords.fxml";
 
     private static final ScreenManager INSTANCE = new ScreenManager();
@@ -38,7 +45,7 @@ public class ScreenManager {
         viewsMap.put(ALL_COMPANIES_VIEW_ID, ALL_COMPANIES_VIEW_FXML);
         viewsMap.put(ADD_WORK_RECORD_VIEW_ID, ADD_WORK_RECORD_VIEW_FXML);
         viewsMap.put(WORK_RECORD_VIEW_ID, WORK_RECORD_VIEW_FXML);
-        for (Map.Entry<String, String> entry : viewsMap.entrySet()){
+        for (Map.Entry<String, String> entry : viewsMap.entrySet()) {
             loadScreen(entry.getKey(), entry.getValue());
         }
     }
@@ -62,11 +69,17 @@ public class ScreenManager {
 
     public Node getMenuBar() {
         List<MenuItem> menuItemsList = new ArrayList<>();
-        screensController.screens.keySet().forEach(screenId -> menuItemsList.add(createMenuItem(screenId)));
+        screensController.screens
+            .keySet()
+            .forEach(screenId -> menuItemsList.add(createMenuItem(screenId)));
         Menu menu = new Menu("Menu");
-        menu.getItems().addAll(menuItemsList);
+        menu
+            .getItems()
+            .addAll(menuItemsList);
         MenuBar menuBar = new MenuBar();
-        menuBar.getMenus().add(menu);
+        menuBar
+            .getMenus()
+            .add(menu);
         return menuBar;
     }
 
@@ -78,23 +91,44 @@ public class ScreenManager {
         return menuItem;
     }
 
-    public void showErrorDialog(String message){
+    public void showErrorDialog(String message) {
         showErrorDialog("Błąd", message);
     }
 
     public void showErrorDialog(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
+        alert.setHeaderText(title);
         alert.setContentText(message);
         alert.showAndWait();
-//        .ifPresent(rs -> {
-//            if (rs == ButtonType.OK) {
-//                System.out.println("Pressed OK.");
-//            }
-//        });
+        //        .ifPresent(rs -> {
+        //            if (rs == ButtonType.OK) {
+        //                System.out.println("Pressed OK.");
+        //            }
+        //        });
     }
 
-    private static final class ScreensController extends StackPane {
+    public void showConfirmationDialog(String message, ConfirmationListener listener) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Potwierdzenie");
+        alert.setHeaderText("Potwierdzenie");
+        alert.setContentText(message);
+
+        alert
+            .showAndWait()
+            .ifPresent(result -> {
+                if (result == ButtonType.OK) {
+                    listener.onConfirmation();
+                }
+            });
+    }
+
+    public interface ConfirmationListener {
+        void onConfirmation();
+    }
+
+    private static final class ScreensController
+        extends StackPane {
         private Map<String, Node> screens = new LinkedHashMap<>();
 
         private void addScreen(String name, Node screen) {
@@ -124,7 +158,7 @@ public class ScreenManager {
             return true;
         }
 
-        private void reloadScreen(String screenId){
+        private void reloadScreen(String screenId) {
             String viewFxml = ScreenManager.viewsMap.get(screenId);
             ResourceBundle bundle = ResourceUtils.loadLabelsForDefaultLocale();
             loadScreen(screenId, viewFxml, bundle);
