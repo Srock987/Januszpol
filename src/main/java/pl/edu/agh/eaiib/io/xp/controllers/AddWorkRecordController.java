@@ -102,16 +102,31 @@ public class AddWorkRecordController implements Initializable {
         LocalDate localDate = this.datePicker.getValue();
 
         try {
-            // TODO zrobić walidację
+            this.validateCompanyName(companyName);
+            this.validateDate(localDate);
+
             Company company = this.findCompany(companyName);
             WorkRecord workRecord = new WorkRecord(company, hours, localDate);
             Database.addWorkRecord(workRecord);
-            this.showInfoDialog("Dodano wpis lamusie");
+            this.showInfoDialog("Dodano firmę","Poprawnie dodano czas pracy dla firmy " + company.getName() + ".");
             this.goToMainView();
         } catch (Exception ex) {
-            ex.printStackTrace();
-            this.showErrorDialog("Wystąpił błąd");
+            this.showErrorDialog("Błąd!", ex.getMessage());
         }
+    }
+
+    private void validateCompanyName(String name) throws InvalidValueException {
+        if (name == null || name.isEmpty())
+            throw new InvalidValueException("Musisz wybrać firmę!");
+    }
+
+    private void validateDate(LocalDate date) throws InvalidValueException {
+        if (date == null)
+            throw new InvalidValueException("Musisz wybrać datę!");
+
+        LocalDate now = LocalDate.now();
+        if (date.isAfter(now))
+            throw new InvalidValueException("Nie możesz wybrać daty z przyszłości!");
     }
 
     private Company findCompany(String companyName) {
@@ -121,9 +136,9 @@ public class AddWorkRecordController implements Initializable {
         return matchingCompanies.get(0);
     }
 
-    private void showInfoDialog(String message) {
+    private void showInfoDialog(String tittle, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Message Here...");
+        alert.setTitle(tittle);
         alert.setContentText(message);
         alert.showAndWait().ifPresent(rs -> {
             if (rs == ButtonType.OK) {
@@ -132,9 +147,9 @@ public class AddWorkRecordController implements Initializable {
         });
     }
 
-    private void showErrorDialog(String message) {
+    private void showErrorDialog(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Message Here...");
+        alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait().ifPresent(rs -> {
             if (rs == ButtonType.OK) {
