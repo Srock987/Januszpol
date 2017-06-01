@@ -16,7 +16,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class WorkRecordsViewController implements Initializable {
+public class AllWorkRecordsController
+    implements Initializable {
 
     @FXML
     TableView<WorkRecord> workRecordsTableView;

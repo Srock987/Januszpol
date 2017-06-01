@@ -15,11 +15,12 @@ import pl.edu.agh.eaiib.io.xp.view.ScreenManager;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ViewAllController implements Initializable {
-    private static final String VIEW_ALL_COMPANIES_TITLE_LABEL_RESOURCE_KEY = "labels.view.all.title";
-    private static final String VIEW_ALL_COMPANIES_BACK_BUTTON_RESOURCE_KEY = "buttons.view.all.back";
-    private static final String VIEW_ALL_COMPANIES_NAME_COLUMN_HEADER_RESOURCE_KEY = "labels.view.all.name";
-    private static final String VIEW_ALL_COMPANIES_ADDRESS_COLUMN_HEADER_RESOURCE_KEY = "labels.view.all.address";
+public class AllCompaniesController
+    implements Initializable {
+    private static final String ALL_COMPANIES_TITLE_LABEL_RESOURCE_KEY = "labels.allCompanies.title";
+    private static final String ALL_COMPANIES_BACK_BUTTON_RESOURCE_KEY = "buttons.allCompanies.back";
+    private static final String ALL_COMPANIES_NAME_COLUMN_HEADER_RESOURCE_KEY = "labels.allCompanies.name";
+    private static final String ALL_COMPANIES_ADDRESS_COLUMN_HEADER_RESOURCE_KEY = "labels.allCompanies.address";
 
     @FXML
     private Label titleLabel;
@@ -38,10 +39,10 @@ public class ViewAllController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        titleLabel.setText(resources.getString(VIEW_ALL_COMPANIES_TITLE_LABEL_RESOURCE_KEY));
-        backButton.setText(resources.getString(VIEW_ALL_COMPANIES_BACK_BUTTON_RESOURCE_KEY));
-        companyNameColumn.setText(resources.getString(VIEW_ALL_COMPANIES_NAME_COLUMN_HEADER_RESOURCE_KEY));
-        companyAddressColumn.setText(resources.getString(VIEW_ALL_COMPANIES_ADDRESS_COLUMN_HEADER_RESOURCE_KEY));
+        titleLabel.setText(resources.getString(ALL_COMPANIES_TITLE_LABEL_RESOURCE_KEY));
+        backButton.setText(resources.getString(ALL_COMPANIES_BACK_BUTTON_RESOURCE_KEY));
+        companyNameColumn.setText(resources.getString(ALL_COMPANIES_NAME_COLUMN_HEADER_RESOURCE_KEY));
+        companyAddressColumn.setText(resources.getString(ALL_COMPANIES_ADDRESS_COLUMN_HEADER_RESOURCE_KEY));
         companyNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         companyAddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
 
