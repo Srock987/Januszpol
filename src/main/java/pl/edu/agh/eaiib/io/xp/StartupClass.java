@@ -19,7 +19,6 @@ public class StartupClass extends Application {
 
     private static final Logger logger = LoggerFactory.getLogger(StartupClass.class);
     private static final String APP_NAME_RESOURCE_KEY = "labels.app.name";
-    private static final String MAIN_VIEW_FXML_LOCATION = "/fxml/mainView.fxml";
     private static final String CSS_STYLESHEET_LOCATION = "/css/style.css";
 
     public static void main(String[] args) {
@@ -45,7 +44,6 @@ public class StartupClass extends Application {
         primaryStage.show();
         logger.info("Main window showed");
     }
-
 
     private void setStyleSheet(Scene scene) {
         String css = this.getClass().getResource(CSS_STYLESHEET_LOCATION).toExternalForm();

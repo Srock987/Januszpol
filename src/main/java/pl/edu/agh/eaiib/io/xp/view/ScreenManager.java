@@ -12,8 +12,6 @@ import pl.edu.agh.eaiib.io.xp.utils.ResourceUtils;
 import java.util.*;
 
 public class ScreenManager {
-    public static final String MAIN_VIEW_ID = "mainView";
-    public static final String MAIN_VIEW_FXML = "/fxml/mainView.fxml";
     public static final String ADD_COMPANY_VIEW_ID = "addCompanyView";
     public static final String ADD_COMPANY_VIEW_FXML = "/fxml/addCompanyView.fxml";
     public static final String ALL_COMPANIES_VIEW_ID = "allCompaniesView";
@@ -38,7 +36,6 @@ public class ScreenManager {
     }
 
     public void initialize() {
-        viewsMap.put(MAIN_VIEW_ID, MAIN_VIEW_FXML);
         viewsMap.put(ADD_COMPANY_VIEW_ID, ADD_COMPANY_VIEW_FXML);
         viewsMap.put(ALL_COMPANIES_VIEW_ID, ALL_COMPANIES_VIEW_FXML);
         viewsMap.put(ADD_WORK_RECORD_VIEW_ID, ADD_WORK_RECORD_VIEW_FXML);
@@ -126,7 +123,7 @@ public class ScreenManager {
                     return entry.getKey();
                 }
             }
-            return MAIN_VIEW_ID;
+            return WORK_RECORD_VIEW_ID;
         }
     }
 }

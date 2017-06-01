@@ -50,7 +50,7 @@ public class ViewAllController implements Initializable {
 
     @FXML
     public void onBackButtonClick() {
-        ScreenManager.getInstance().setScreen(ScreenManager.MAIN_VIEW_ID);
+        ScreenManager.getInstance().setScreen(ScreenManager.WORK_RECORD_VIEW_ID);
     }
 
 }
