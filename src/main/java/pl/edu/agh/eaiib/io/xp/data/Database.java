@@ -31,7 +31,7 @@ public class Database {
     }
 
     public static void addWorkRecord(WorkRecord workRecord){
-        workRecords.add(workRecord);
+        workRecords.add(0, workRecord);
     }
 
     public static ArrayList<Company> getCompanyList() {

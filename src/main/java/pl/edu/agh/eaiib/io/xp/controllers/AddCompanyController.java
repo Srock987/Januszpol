@@ -3,9 +3,7 @@ package pl.edu.agh.eaiib.io.xp.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import pl.edu.agh.eaiib.io.xp.data.Database;
 import pl.edu.agh.eaiib.io.xp.model.Company;
 import pl.edu.agh.eaiib.io.xp.view.ScreenManager;
@@ -55,9 +53,13 @@ public class AddCompanyController implements Initializable {
     public void onAddCompanyButtonClick(ActionEvent e) throws Throwable {
         String companyName = newCompanyNameTextField.getText();
         String address = newCompanyAddressTextField.getText();
-        Company newCompany = new Company(companyName, address);
-        Database.getCompanyList().add(newCompany);
-        ScreenManager.getInstance().setScreen(ScreenManager.WORK_RECORD_VIEW_ID);
+        try{
+            Company newCompany = new Company(companyName, address);
+            Database.getCompanyList().add(newCompany);
+            ScreenManager.getInstance().setScreen(ScreenManager.WORK_RECORD_VIEW_ID);
+        } catch (RuntimeException exc){
+            ScreenManager.getInstance().showErrorDialog(exc.getMessage());
+        }
     }
 
     @FXML

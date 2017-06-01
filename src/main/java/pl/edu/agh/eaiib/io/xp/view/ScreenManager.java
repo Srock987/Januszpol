@@ -3,9 +3,7 @@ package pl.edu.agh.eaiib.io.xp.view;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import pl.edu.agh.eaiib.io.xp.utils.ResourceUtils;
 
@@ -78,6 +76,22 @@ public class ScreenManager {
         MenuItem menuItem = new MenuItem(menuText);
         menuItem.setOnAction(event -> setScreen(screenId));
         return menuItem;
+    }
+
+    public void showErrorDialog(String message){
+        showErrorDialog("Błąd", message);
+    }
+
+    public void showErrorDialog(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.showAndWait();
+//        .ifPresent(rs -> {
+//            if (rs == ButtonType.OK) {
+//                System.out.println("Pressed OK.");
+//            }
+//        });
     }
 
     private static final class ScreensController extends StackPane {
