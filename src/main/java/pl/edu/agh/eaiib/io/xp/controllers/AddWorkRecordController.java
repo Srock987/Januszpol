@@ -92,7 +92,7 @@ public class AddWorkRecordController implements Initializable {
     }
 
     private void goToMainView() {
-        ScreenManager.getInstance().setScreen(ScreenManager.MAIN_VIEW_ID);
+        ScreenManager.getInstance().setScreen(ScreenManager.WORK_RECORD_VIEW_ID);
     }
 
     @FXML

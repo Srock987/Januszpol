@@ -57,11 +57,11 @@ public class AddCompanyController implements Initializable {
         String address = newCompanyAddressTextField.getText();
         Company newCompany = new Company(companyName, address);
         Database.getCompanyList().add(newCompany);
-        ScreenManager.getInstance().setScreen(ScreenManager.MAIN_VIEW_ID);
+        ScreenManager.getInstance().setScreen(ScreenManager.WORK_RECORD_VIEW_ID);
     }
 
     @FXML
     public void onCancelButtonClick(ActionEvent e) throws Throwable {
-        ScreenManager.getInstance().setScreen(ScreenManager.MAIN_VIEW_ID);
+        ScreenManager.getInstance().setScreen(ScreenManager.WORK_RECORD_VIEW_ID);
     }
 }
