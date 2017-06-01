@@ -6,15 +6,16 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="391.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.eaiib.io.xp.controllers.AllCompaniesController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="391.0" prefWidth="612.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.eaiib.io.xp.controllers.AllCompaniesController">
    <children>
       <Label fx:id="titleLabel" layoutX="43.0" layoutY="30.0" text="Label" />
-      <Button fx:id="backButton" layoutX="443.0" layoutY="340.0" mnemonicParsing="false" onAction="#onBackButtonClick" text="Button" />
-      <TableView fx:id="companiesList" editable="true" layoutX="43.0" layoutY="64.0" prefHeight="264.0" prefWidth="465.0">
+      <Button fx:id="backButton" layoutX="487.0" layoutY="340.0" mnemonicParsing="false" onAction="#onBackButtonClick" text="Button" />
+      <TableView fx:id="companiesList" editable="true" layoutX="43.0" layoutY="64.0" prefHeight="264.0" prefWidth="509.0">
         <columns>
           <TableColumn fx:id="companyNameColumn" prefWidth="220.0" text="C1" />
-          <TableColumn fx:id="companyAddressColumn" prefWidth="245.0" text="C2" />
-            <TableColumn fx:id="deleteCompanyColumn" maxWidth="1500.0" prefWidth="30.0" text="C3" />
+          <TableColumn fx:id="companyAddressColumn" prefWidth="150.0" text="C2" />
+            <TableColumn fx:id="editCompanyColumn" maxWidth="1700.0" text="C3" />
+            <TableColumn fx:id="deleteCompanyColumn" maxWidth="1600.0" prefWidth="74.0" text="C4" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

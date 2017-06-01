@@ -1,8 +1,6 @@
 package pl.edu.agh.eaiib.io.xp;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -12,7 +10,6 @@ import pl.edu.agh.eaiib.io.xp.data.Database;
 import pl.edu.agh.eaiib.io.xp.utils.ResourceUtils;
 import pl.edu.agh.eaiib.io.xp.view.ScreenManager;
 
-import java.io.IOException;
 import java.util.ResourceBundle;
 
 public class StartupClass extends Application {
@@ -34,7 +31,7 @@ public class StartupClass extends Application {
         borderPane.setCenter(screenManager.getContainer());
 
         Scene scene = new Scene(borderPane);
-        screenManager.setScreen(ScreenManager.WORK_RECORD_VIEW_ID);
+        screenManager.setScreen(ScreenManager.ALL_WORK_RECORDS_VIEW_ID);
         ResourceBundle resources = ResourceUtils.loadLabelsForDefaultLocale();
         String appTitle = resources.getString(APP_NAME_RESOURCE_KEY);
 
