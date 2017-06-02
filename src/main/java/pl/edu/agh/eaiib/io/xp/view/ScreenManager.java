@@ -17,6 +17,8 @@ public class ScreenManager {
     public static final String EDIT_COMPANY_VIEW_FXML = "/fxml/editCompanyView.fxml";
     public static final String ADD_WORK_RECORD_VIEW_ID = "addWorkRecordView";
     public static final String ADD_WORK_RECORD_VIEW_FXML = "/fxml/addWorkRecordView.fxml";
+    public static final String EDIT_WORK_RECORD_VIEW_ID = "editWorkRecordView";
+    public static final String EDIT_WORK_RECORD_VIEW_FXML = "/fxml/editWorkRecordView.fxml";
     public static final String ALL_COMPANIES_VIEW_ID = "viewAllCompanies";
     public static final String ALL_COMPANIES_VIEW_FXML = "/fxml/viewAllCompanies.fxml";
     public static final String ALL_WORK_RECORDS_VIEW_ID = "viewAllWorkRecords";
@@ -41,8 +43,9 @@ public class ScreenManager {
     public void initialize() {
         viewsMap.put(ADD_COMPANY_VIEW_ID, ADD_COMPANY_VIEW_FXML);
         viewsMap.put(EDIT_COMPANY_VIEW_ID, EDIT_COMPANY_VIEW_FXML);
-        viewsMap.put(ALL_COMPANIES_VIEW_ID, ALL_COMPANIES_VIEW_FXML);
         viewsMap.put(ADD_WORK_RECORD_VIEW_ID, ADD_WORK_RECORD_VIEW_FXML);
+        viewsMap.put(EDIT_WORK_RECORD_VIEW_ID, EDIT_WORK_RECORD_VIEW_FXML);
+        viewsMap.put(ALL_COMPANIES_VIEW_ID, ALL_COMPANIES_VIEW_FXML);
         viewsMap.put(ALL_WORK_RECORDS_VIEW_ID, ALL_WORK_RECORDS_VIEW_FXML);
         for (Map.Entry<String, String> entry : viewsMap.entrySet()) {
             loadScreen(entry.getKey(), entry.getValue());

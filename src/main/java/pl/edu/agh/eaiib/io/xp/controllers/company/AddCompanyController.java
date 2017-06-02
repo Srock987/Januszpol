@@ -1,10 +1,11 @@
-package pl.edu.agh.eaiib.io.xp.controllers;
+package pl.edu.agh.eaiib.io.xp.controllers.company;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import pl.edu.agh.eaiib.io.xp.controllers.AbstractController;
 import pl.edu.agh.eaiib.io.xp.data.Database;
 import pl.edu.agh.eaiib.io.xp.model.Company;
 import pl.edu.agh.eaiib.io.xp.view.ScreenManager;

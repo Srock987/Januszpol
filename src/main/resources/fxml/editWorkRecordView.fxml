@@ -7,7 +7,7 @@
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="addWorkRecordAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="303.0" prefWidth="447.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.eaiib.io.xp.controllers.workRecord.AddWorkRecordController">
+<AnchorPane fx:id="editWorkRecordAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="303.0" prefWidth="447.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.eaiib.io.xp.controllers.workRecord.EditWorkRecordController">
    <children>
       <Button fx:id="saveButton" layoutX="357.0" layoutY="242.0" mnemonicParsing="false" onAction="#onSaveButtonClicked" prefHeight="26.0" prefWidth="63.0" text="Save" />
       <Button fx:id="cancelButton" layoutX="262.0" layoutY="242.0" mnemonicParsing="false" onAction="#onCancelButtonClicked" text="Cancel" />

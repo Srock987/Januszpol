@@ -1,9 +1,9 @@
-package pl.edu.agh.eaiib.io.xp.controllers;
+package pl.edu.agh.eaiib.io.xp.controllers.workRecord;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import pl.edu.agh.eaiib.io.xp.controllers.AbstractController;
 import pl.edu.agh.eaiib.io.xp.data.Database;
 import pl.edu.agh.eaiib.io.xp.model.Company;
 import pl.edu.agh.eaiib.io.xp.model.WorkRecord;
@@ -12,10 +12,8 @@ import pl.edu.agh.eaiib.io.xp.view.ScreenManager;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class AddWorkRecordController extends AbstractController {
     private static final String ADD_WORK_RECORD_VIEW_TITLE = "labels.add_work_record.title";
@@ -26,31 +24,31 @@ public class AddWorkRecordController extends AbstractController {
     private static final String CANCEL_BUTTON = "buttons.add_work_record.cancel_button";
 
     @FXML
-    Label titleLabel;
+    private Label titleLabel;
 
     @FXML
-    Label selectCompanyLabel;
+    private Label selectCompanyLabel;
 
     @FXML
-    Label selectDateLabel;
+    private Label selectDateLabel;
 
     @FXML
-    Label selectHoursLabel;
+    private Label selectHoursLabel;
 
     @FXML
-    Button saveButton;
+    private Button saveButton;
 
     @FXML
-    Button cancelButton;
+    private Button cancelButton;
 
     @FXML
-    ComboBox<String> companyComboBox;
+    private ComboBox<String> companyComboBox;
 
     @FXML
-    DatePicker datePicker;
+    private DatePicker datePicker;
 
     @FXML
-    Spinner<Integer> hoursSpinner;
+    private Spinner<Integer> hoursSpinner;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -99,10 +97,9 @@ public class AddWorkRecordController extends AbstractController {
             this.validateCompanyName(companyName);
             this.validateDate(localDate);
 
-            Company company = this.findCompany(companyName);
+            Company company = Database.getCompanyByName(companyName);
             WorkRecord workRecord = new WorkRecord(company, hours, localDate);
             Database.addWorkRecord(workRecord);
-//            this.showInfoDialog("Dodano firmę","Poprawnie dodano czas pracy dla firmy " + company.getName() + ".");
             this.goToMainView();
         } catch (Exception exc) {
             ScreenManager.getInstance().showErrorDialog(exc.getMessage());
@@ -121,16 +118,5 @@ public class AddWorkRecordController extends AbstractController {
         LocalDate now = LocalDate.now();
         if (date.isAfter(now))
             throw new InvalidValueException("Nie możesz wybrać daty z przyszłości!");
-    }
-
-    private Company findCompany(String companyName) {
-        ArrayList<Company> companies =  Database.getCompanyList();
-        List<Company> matchingCompanies = companies.stream().filter(company -> company.getName().equals(companyName))
-                                                    .collect(Collectors.toList());
-        return matchingCompanies.get(0);
-    }
-
-    private void goToWorkRecordsList() {
-
     }
 }

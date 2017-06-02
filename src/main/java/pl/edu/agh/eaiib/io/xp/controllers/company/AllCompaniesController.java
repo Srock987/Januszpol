@@ -1,4 +1,4 @@
-package pl.edu.agh.eaiib.io.xp.controllers;
+package pl.edu.agh.eaiib.io.xp.controllers.company;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import pl.edu.agh.eaiib.io.xp.controllers.AbstractController;
 import pl.edu.agh.eaiib.io.xp.data.Database;
 import pl.edu.agh.eaiib.io.xp.model.Company;
 import pl.edu.agh.eaiib.io.xp.utils.TableButtonCallback;

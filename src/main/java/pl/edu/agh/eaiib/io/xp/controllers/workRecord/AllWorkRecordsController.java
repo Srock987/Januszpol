@@ -1,10 +1,11 @@
-package pl.edu.agh.eaiib.io.xp.controllers;
+package pl.edu.agh.eaiib.io.xp.controllers.workRecord;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import pl.edu.agh.eaiib.io.xp.controllers.AbstractController;
 import pl.edu.agh.eaiib.io.xp.data.Database;
 import pl.edu.agh.eaiib.io.xp.model.WorkRecord;
 import pl.edu.agh.eaiib.io.xp.utils.TableButtonCallback;
@@ -50,7 +51,10 @@ public class AllWorkRecordsController
 
         TableButtonCallback<WorkRecord> editButtonCallback = new TableButtonCallback<>();
         editButtonCallback.setButtonText("Edytuj");
-        editButtonCallback.setListener(item -> System.out.println("EDIT WORK: " + item));
+        editButtonCallback.setListener(item -> {
+            ScreenManager.getInstance().setScreen(ScreenManager.EDIT_WORK_RECORD_VIEW_ID);
+            ((EditWorkRecordController) ScreenManager.currentController).setEditingWorkRecord((WorkRecord) item);
+        });
         editColumn.setCellFactory(editButtonCallback);
 
         TableButtonCallback<WorkRecord> deleteButtonCallback = new TableButtonCallback<>();

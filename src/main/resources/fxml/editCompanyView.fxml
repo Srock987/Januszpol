@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="editCompanyAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="323.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.eaiib.io.xp.controllers.EditCompanyController">
+<AnchorPane fx:id="editCompanyAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="323.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.eaiib.io.xp.controllers.company.EditCompanyController">
    <children>
          <Label fx:id="editCompanyTitleLabel" layoutX="32.0" layoutY="30.0" prefHeight="21.0" prefWidth="298.0" text="Label" />
       <TextField fx:id="editCompanyNameTextField" layoutX="117.0" layoutY="108.0" />
