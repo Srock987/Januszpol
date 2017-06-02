@@ -7,12 +7,12 @@
 
 <AnchorPane fx:id="editCompanyAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="323.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.eaiib.io.xp.controllers.company.EditCompanyController">
    <children>
-         <Label fx:id="editCompanyTitleLabel" layoutX="32.0" layoutY="30.0" prefHeight="21.0" prefWidth="298.0" text="Label" />
-      <TextField fx:id="editCompanyNameTextField" layoutX="117.0" layoutY="108.0" />
-      <TextField fx:id="editCompanyAddressTextField" layoutX="117.0" layoutY="168.0" />
-      <Button fx:id="editCompanyAddButton" contentDisplay="CENTER" layoutX="224.0" layoutY="238.0" mnemonicParsing="false" onAction="#onSaveCompanyButtonClick" prefHeight="31.0" prefWidth="80.0" text="Button" />
-      <Label fx:id="editCompanyNameLabel" layoutX="117.0" layoutY="87.0" prefHeight="21.0" prefWidth="187.0" text="Label" textAlignment="RIGHT" AnchorPane.rightAnchor="116.0" />
-      <Label fx:id="editCompanyAddressLabel" layoutX="117.0" layoutY="147.0" prefHeight="21.0" prefWidth="187.0" text="Label" textAlignment="RIGHT" />
-      <Button fx:id="editCompanyCancelButton" layoutX="117.0" layoutY="238.0" mnemonicParsing="false" onAction="#onCancelEditingButtonClick" prefHeight="31.0" prefWidth="80.0" text="Button" />
+         <Label fx:id="companyTitleLabel" layoutX="32.0" layoutY="30.0" prefHeight="21.0" prefWidth="298.0" text="Label" />
+      <TextField fx:id="companyNameTextField" layoutX="117.0" layoutY="108.0" />
+      <TextField fx:id="companyAddressTextField" layoutX="117.0" layoutY="168.0" />
+      <Button fx:id="companyAddButton" contentDisplay="CENTER" layoutX="224.0" layoutY="238.0" mnemonicParsing="false" onAction="#onSaveCompanyButtonClick" prefHeight="31.0" prefWidth="80.0" text="Button" />
+      <Label fx:id="companyNameLabel" layoutX="117.0" layoutY="87.0" prefHeight="21.0" prefWidth="187.0" text="Label" textAlignment="RIGHT" AnchorPane.rightAnchor="116.0" />
+      <Label fx:id="companyAddressLabel" layoutX="117.0" layoutY="147.0" prefHeight="21.0" prefWidth="187.0" text="Label" textAlignment="RIGHT" />
+      <Button fx:id="companyCancelButton" layoutX="117.0" layoutY="238.0" mnemonicParsing="false" onAction="#onCancelButtonClick" prefHeight="31.0" prefWidth="80.0" text="Button" />
    </children>
 </AnchorPane>

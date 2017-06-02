@@ -19,22 +19,22 @@ public class AllWorkRecordsController
     extends AbstractController {
 
     @FXML
-    TableView<WorkRecord> workRecordsTableView;
+    private TableView<WorkRecord> workRecordsTableView;
 
     @FXML
-    TableColumn<WorkRecord, String> companyNameColumn;
+    private TableColumn<WorkRecord, String> companyNameColumn;
 
     @FXML
-    TableColumn<WorkRecord, Integer> hoursColumn;
+    private TableColumn<WorkRecord, Integer> hoursColumn;
 
     @FXML
-    TableColumn<WorkRecord, LocalDate> dateColumn;
+    private TableColumn<WorkRecord, LocalDate> dateColumn;
 
     @FXML
-    TableColumn<WorkRecord, String> editColumn;
+    private TableColumn<WorkRecord, String> editColumn;
 
     @FXML
-    TableColumn<WorkRecord, String> deleteColumn;
+    private TableColumn<WorkRecord, String> deleteColumn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
