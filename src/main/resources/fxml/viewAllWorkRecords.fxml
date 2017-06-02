@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="456.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.eaiib.io.xp.controllers.AllWorkRecordsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="456.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.eaiib.io.xp.controllers.AllWorkRecordsController">
     <children>
         <Label layoutX="24.0" layoutY="22.0" text="Tabela przepracowanych godzin" />
         <HBox layoutX="24.0" layoutY="55.0">
@@ -17,8 +17,8 @@
                     <TableColumn fx:id="companyNameColumn" prefWidth="160.0" text="Nazwa firmy" />
                     <TableColumn fx:id="dateColumn" prefWidth="117.0" text="Data" />
                     <TableColumn fx:id="hoursColumn" prefWidth="78.0" text="Godzin" />
-               <TableColumn fx:id="editColumn" prefWidth="72.0" text="Edytuj" />
-                    <TableColumn fx:id="deleteColumn" prefWidth="63.0" text="Usuń" />
+               <TableColumn fx:id="editColumn" prefWidth="76.0" text="Edytuj" />
+                    <TableColumn fx:id="deleteColumn" prefWidth="64.0" text="Usuń" />
                 </columns>
             </TableView>
             <Accordion layoutX="448.0" layoutY="39.0">
