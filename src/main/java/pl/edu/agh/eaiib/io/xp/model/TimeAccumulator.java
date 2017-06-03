@@ -1,5 +1,7 @@
 package pl.edu.agh.eaiib.io.xp.model;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
@@ -14,9 +16,16 @@ public class TimeAccumulator
         this.workRecords = workRecords;
     }
 
-    public Integer calculateSumOfTime(Company company) {
-        return workRecords.stream()
-            .filter(workRecord -> workRecord.getCompany().equals(company))
-            .mapToInt(o -> o.getHours()).sum();
+    public Integer calculateSumOfTime(Company company)
+    {
+        return workRecords.stream().filter(workRecord -> workRecord.getCompany().equals(company)).mapToInt(
+            o -> o.getHours()).sum();
+    }
+
+    public Integer calculateSumOfTime(Company company, LocalDate timePeriodStart, LocalDate timePeriodEnd)
+    {
+        return workRecords.stream().filter(
+            workRecord -> workRecord.getCompany().equals(company) && workRecord.getDate().isBefore(timePeriodEnd)
+                && workRecord.getDate().isAfter(timePeriodStart)).mapToInt(o -> o.getHours()).sum();
     }
 }

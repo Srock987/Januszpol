@@ -112,6 +112,11 @@
                 </TitledPane>
             </panes>
         </Accordion>
-      <TextField fx:id="sumOfTimeField" layoutX="277.0" prefHeight="40.0" prefWidth="379.0" />
+      <TextField fx:id="sumOfTimeField" layoutX="438.0" layoutY="317.0" prefHeight="52.0" prefWidth="237.0" />
+      <Label layoutX="443.0" layoutY="166.0" text="Suma przepracowanych godzin" />
+      <Label layoutX="474.0" layoutY="187.0" prefHeight="14.0" prefWidth="137.0" text="Początek okresu" />
+      <Label layoutX="474.0" layoutY="243.0" prefHeight="14.0" prefWidth="137.0" text="Koniec okresu" />
+      <DatePicker fx:id="sumOfTimeBeg" layoutX="449.0" layoutY="212.0" prefHeight="31.0" prefWidth="196.0" />
+      <DatePicker fx:id="sumOfTimeEnd" layoutX="448.0" layoutY="264.0" prefHeight="31.0" prefWidth="196.0" />
     </children>
 </AnchorPane>
