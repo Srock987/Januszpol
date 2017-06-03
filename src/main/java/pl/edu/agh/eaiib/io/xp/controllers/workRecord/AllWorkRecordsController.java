@@ -6,6 +6,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.edu.agh.eaiib.io.xp.controllers.AbstractController;
 import pl.edu.agh.eaiib.io.xp.data.Database;
+import pl.edu.agh.eaiib.io.xp.model.Company;
+import pl.edu.agh.eaiib.io.xp.model.TimeAccumulator;
 import pl.edu.agh.eaiib.io.xp.model.WorkRecord;
 import pl.edu.agh.eaiib.io.xp.utils.TableButtonCallback;
 import pl.edu.agh.eaiib.io.xp.view.ScreenManager;
@@ -21,49 +23,43 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class AllWorkRecordsController
-    extends AbstractController {
+    extends AbstractController
+{
+    private static final String SUM_OF_TIME_FIELD_RESOURCE_KEY = "textfields.sumOfTime";
+    private static final String SUM_OF_TIME_FIELD_ACTIVE_RESOURCE_KEY = "textfields.sumOfTimeActive";
 
-    @FXML
-    private TableView<WorkRecord> workRecordsTableView;
+    @FXML private TableView<WorkRecord> workRecordsTableView;
 
-    @FXML
-    private TableColumn<WorkRecord, String> companyNameColumn;
+    @FXML private TableColumn<WorkRecord, String> companyNameColumn;
 
-    @FXML
-    private TableColumn<WorkRecord, Integer> hoursColumn;
+    @FXML private TableColumn<WorkRecord, Integer> hoursColumn;
 
-    @FXML
-    private TableColumn<WorkRecord, LocalDate> dateColumn;
+    @FXML private TableColumn<WorkRecord, LocalDate> dateColumn;
 
-    @FXML
-    private TableColumn<WorkRecord, String> editColumn;
+    @FXML private TableColumn<WorkRecord, String> editColumn;
 
-    @FXML
-    private TableColumn<WorkRecord, String> deleteColumn;
+    @FXML private TableColumn<WorkRecord, String> deleteColumn;
 
-    @FXML
-    private TextField companyNameField;
+    @FXML private TextField companyNameField;
 
-    @FXML
-    private TextField nrOfHoursField;
+    @FXML private TextField nrOfHoursField;
 
-    @FXML
-    private DatePicker beginDateControl;
+    @FXML private DatePicker beginDateControl;
 
-    @FXML
-    private DatePicker endDateControl;
+    @FXML private DatePicker endDateControl;
 
-    @FXML
-    private Button clearButton;
+    @FXML private Button clearButton;
 
-    @FXML
-    private Button applyButton;
+    @FXML private Button applyButton;
+
+    @FXML private TextField sumOfTimeField;
 
     private List<WorkRecordsViewFilter> filters = FiltersFactory.getDefaultFilters();
+
     private WorkRecordsViewFilter activeFilter = FiltersFactory.getEmptyFilter();
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @Override public void initialize(URL location, ResourceBundle resources)
+    {
         companyNameColumn.setResizable(false);
         hoursColumn.setResizable(false);
         dateColumn.setResizable(false);
@@ -75,27 +71,37 @@ public class AllWorkRecordsController
         editColumn.setCellValueFactory(new PropertyValueFactory<>("edit"));
         deleteColumn.setCellValueFactory(new PropertyValueFactory<>("delete"));
 
+        sumOfTimeField.setText(resources.getString(SUM_OF_TIME_FIELD_RESOURCE_KEY));
+
         TableButtonCallback<WorkRecord> editButtonCallback = new TableButtonCallback<>();
         editButtonCallback.setButtonText("Edytuj");
         editButtonCallback.setListener(item -> {
             ScreenManager.getInstance().setScreen(ScreenManager.EDIT_WORK_RECORD_VIEW_ID);
-            ((EditWorkRecordController) ScreenManager.currentController).setEditingWorkRecord((WorkRecord) item);
+            ((EditWorkRecordController)ScreenManager.currentController).setEditingWorkRecord((WorkRecord)item);
         });
         editColumn.setCellFactory(editButtonCallback);
 
         TableButtonCallback<WorkRecord> deleteButtonCallback = new TableButtonCallback<>();
         deleteButtonCallback.setButtonText("Usuń");
-        deleteButtonCallback.setListener(item -> ScreenManager
-            .getInstance()
-            .showConfirmationDialog("Czy na pewno usunąć rekord?", () -> {
-                Database
-                    .getWorkRecords()
-                    .remove(item);
+        deleteButtonCallback.setListener(
+            item -> ScreenManager.getInstance().showConfirmationDialog("Czy na pewno usunąć rekord?", () -> {
+                Database.getWorkRecords().remove(item);
                 workRecordsTableView.setItems(FXCollections.observableList(Database.getWorkRecords()));
             }));
         deleteColumn.setCellFactory(deleteButtonCallback);
 
         workRecordsTableView.setItems(FXCollections.observableList(Database.getWorkRecords()));
+
+        workRecordsTableView.getSelectionModel().selectedItemProperty().addListener(
+            (obs, oldSelection, newSelection) -> {
+                if (newSelection != null) {
+                    sumOfTimeField.setText(
+                        resources.getString(SUM_OF_TIME_FIELD_ACTIVE_RESOURCE_KEY) + calculateSumOfTime(
+                            newSelection.getCompany()).toString());
+                }
+                else
+                    sumOfTimeField.setText(resources.getString(SUM_OF_TIME_FIELD_RESOURCE_KEY));
+            });
 
         filters = createFilters();
 
@@ -109,7 +115,8 @@ public class AllWorkRecordsController
         });
     }
 
-    private List<WorkRecordsViewFilter> createFilters() {
+    private List<WorkRecordsViewFilter> createFilters()
+    {
         List<WorkRecordsViewFilter> filters = new ArrayList<>();
         filters.add(FiltersFactory.createCompanyNameFilter(companyNameField));
         filters.add(FiltersFactory.createBeginDateFilter(beginDateControl));
@@ -119,7 +126,8 @@ public class AllWorkRecordsController
         return filters;
     }
 
-    private void clearFiltersControls() {
+    private void clearFiltersControls()
+    {
         String empty = "";
         companyNameField.setText(empty);
         nrOfHoursField.setText(empty);
@@ -127,18 +135,29 @@ public class AllWorkRecordsController
         endDateControl.getEditor().setText(empty);
     }
 
-    private void refreshFilters() {
+    private void refreshFilters()
+    {
         activeFilter = getActiveFilter();
         refreshListView();
     }
 
-    private WorkRecordsViewFilter getActiveFilter() {
-        List<WorkRecordsViewFilter> activeFilters = filters.stream().filter(WorkRecordsViewFilter::isActive).collect(Collectors.toList());
+    private WorkRecordsViewFilter getActiveFilter()
+    {
+        List<WorkRecordsViewFilter> activeFilters = filters.stream().filter(WorkRecordsViewFilter::isActive).collect(
+            Collectors.toList());
         return new AndFilter(activeFilters);
     }
 
-    private void refreshListView() {
-        List<WorkRecord> workRecords = Database.getWorkRecords().stream().filter(record -> activeFilter.accepts(record)).collect(Collectors.toList());
+    private void refreshListView()
+    {
+        List<WorkRecord> workRecords = Database.getWorkRecords().stream().filter(record -> activeFilter.accepts(record)).collect(
+            Collectors.toList());
         workRecordsTableView.setItems(FXCollections.observableList(workRecords));
+    }
+
+    private Integer calculateSumOfTime(Company company)
+    {
+        TimeAccumulator timeAccumulator = new TimeAccumulator(Database.getWorkRecords());
+        return timeAccumulator.calculateSumOfTime(company);
     }
 }
