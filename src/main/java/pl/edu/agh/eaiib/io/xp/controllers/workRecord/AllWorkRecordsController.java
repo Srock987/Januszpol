@@ -130,8 +130,8 @@ public class AllWorkRecordsController
         if (newSelection != null) {
             TimeAccumulator timeAccumulator = new TimeAccumulator(Database.getWorkRecords());
             final boolean areAllDatesAvailable = !isEmpty(sumOfTimeBeg) && !isEmpty(sumOfTimeEnd);
-            final boolean areAnyDatesAvailable = (!isEmpty(sumOfTimeBeg) || !isEmpty(sumOfTimeEnd)) && !areAllDatesAvailable;
-            if (areAnyDatesAvailable) {
+            final boolean areAnyDatesAvailable = (!isEmpty(sumOfTimeBeg) || !isEmpty(sumOfTimeEnd));
+            if (areAnyDatesAvailable && !areAllDatesAvailable) {
                 sumOfTimeField.setText(resources.getString(FILL_BOTH_RESOURCE_KEY));
                 return;
             }
