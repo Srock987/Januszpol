@@ -1,11 +1,15 @@
 package pl.edu.agh.eaiib.io.xp.view;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import pl.edu.agh.eaiib.io.xp.controllers.AbstractController;
+import pl.edu.agh.eaiib.io.xp.utils.CsvExporter;
 import pl.edu.agh.eaiib.io.xp.utils.ResourceUtils;
 
 import java.util.*;
@@ -23,6 +27,7 @@ public class ScreenManager {
     public static final String ALL_COMPANIES_VIEW_FXML = "/fxml/viewAllCompanies.fxml";
     public static final String ALL_WORK_RECORDS_VIEW_ID = "viewAllWorkRecords";
     public static final String ALL_WORK_RECORDS_VIEW_FXML = "/fxml/viewAllWorkRecords.fxml";
+    public static final String EXPORT_RECORDS_VIEW_ID = "exportRecordsView";
 
     private static final ScreenManager INSTANCE = new ScreenManager();
 
@@ -32,7 +37,14 @@ public class ScreenManager {
 
     public static AbstractController currentController;
 
+    private static Stage primaryStage;
+
     public static ScreenManager getInstance() {
+        return INSTANCE;
+    }
+
+    public static ScreenManager getInstance(Stage primaryStage) {
+        ScreenManager.primaryStage = primaryStage;
         return INSTANCE;
     }
 
@@ -75,6 +87,7 @@ public class ScreenManager {
         menuItemsList.add(createMenuItem(ADD_WORK_RECORD_VIEW_ID));
         menuItemsList.add(createMenuItem(ALL_COMPANIES_VIEW_ID));
         menuItemsList.add(createMenuItem(ALL_WORK_RECORDS_VIEW_ID));
+        menuItemsList.add(createMenuItem(EXPORT_RECORDS_VIEW_ID));
 
         Menu menu = new Menu("Menu");
         menu
@@ -91,7 +104,15 @@ public class ScreenManager {
         ResourceBundle resources = ResourceUtils.loadLabelsForDefaultLocale();
         String menuText = resources.getString("menu." + screenId);
         MenuItem menuItem = new MenuItem(menuText);
-        menuItem.setOnAction(event -> setScreen(screenId));
+        if( screenId.equals(EXPORT_RECORDS_VIEW_ID) ) {
+            menuItem.setOnAction(event -> {
+                CsvExporter exporter = new CsvExporter(primaryStage,currentController);
+                exporter.exportRecords();
+            });
+        }
+        else {
+            menuItem.setOnAction(event -> setScreen(screenId));
+        }
         return menuItem;
     }
 

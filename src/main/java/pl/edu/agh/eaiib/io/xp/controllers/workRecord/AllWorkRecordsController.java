@@ -173,7 +173,7 @@ public class AllWorkRecordsController
         refreshListView();
     }
 
-    private WorkRecordsViewFilter getActiveFilter()
+    public WorkRecordsViewFilter getActiveFilter()
     {
         List<WorkRecordsViewFilter> activeFilters = filters.stream().filter(WorkRecordsViewFilter::isActive).collect(
             Collectors.toList());

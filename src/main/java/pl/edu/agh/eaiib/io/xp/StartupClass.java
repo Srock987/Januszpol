@@ -23,7 +23,7 @@ public class StartupClass extends Application {
     }
 
     public void start(Stage primaryStage) throws Exception {
-        ScreenManager screenManager = ScreenManager.getInstance();
+        ScreenManager screenManager = ScreenManager.getInstance(primaryStage);
         screenManager.initialize();
 
         BorderPane borderPane = new BorderPane();
