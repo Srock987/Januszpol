@@ -77,6 +77,7 @@ public class ScreenManager {
         menuItemsList.add(createMenuItem(ALL_WORK_RECORDS_VIEW_ID));
 
         Menu menu = new Menu("Menu");
+        menu.setId("main-menu");
         menu
             .getItems()
             .addAll(menuItemsList);
@@ -91,6 +92,7 @@ public class ScreenManager {
         ResourceBundle resources = ResourceUtils.loadLabelsForDefaultLocale();
         String menuText = resources.getString("menu." + screenId);
         MenuItem menuItem = new MenuItem(menuText);
+        menuItem.setId(screenId);
         menuItem.setOnAction(event -> setScreen(screenId));
         return menuItem;
     }
