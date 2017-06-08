@@ -1,5 +1,6 @@
 package pl.edu.agh.eaiib.io.xp.controllers.company;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import pl.edu.agh.eaiib.io.xp.controllers.AbstractController;
 import pl.edu.agh.eaiib.io.xp.data.Database;
 import pl.edu.agh.eaiib.io.xp.model.Company;
@@ -59,6 +61,12 @@ public class AllCompaniesController
         companyAddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
         editCompanyColumn.setCellValueFactory(new PropertyValueFactory<>("edit"));
         deleteCompanyColumn.setCellValueFactory(new PropertyValueFactory<>("delete"));
+        deleteCompanyColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Company, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Company, String> param) {
+                return null;
+            }
+        });
 
         TableButtonCallback<Company> deleteButtonCallback = new TableButtonCallback<>();
         deleteButtonCallback.setButtonText("Usuń");

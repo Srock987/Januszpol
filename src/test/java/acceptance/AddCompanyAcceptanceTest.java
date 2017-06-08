@@ -24,7 +24,7 @@ import static org.testfx.matcher.control.LabeledMatchers.hasText;
  */
 public class AddCompanyAcceptanceTest extends ApplicationTest {
 
-    Scene scene;
+    private Scene scene;
 
     @Override
     public void start(Stage stage) throws Exception {
