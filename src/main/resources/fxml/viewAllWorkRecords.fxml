@@ -101,22 +101,33 @@
                         </AnchorPane>
                     </content>
                 </TitledPane>
-                <TitledPane animated="false" text="Może coś jeszcze?">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <Label layoutX="27.0" layoutY="14.0" prefHeight="119.0" prefWidth="132.0" text="Nikt nie spodziewał się Hiszpańskiej inkwizycji" wrapText="true" />
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </TitledPane>
+            <TitledPane animated="false" text="Suma godzin">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <DatePicker fx:id="sumOfTimeBeg" layoutX="24.0" layoutY="90.0" prefHeight="15.0" prefWidth="163.0" />
+                        <Label layoutX="14.0" layoutY="14.0" prefHeight="15.0" prefWidth="173.0" text="Suma przepracowanych godzin">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="sumOfTimeField" layoutX="25.0" layoutY="38.0" prefHeight="25.0" prefWidth="161.0" />
+                        <Label layoutX="14.0" layoutY="76.0" prefHeight="14.0" prefWidth="137.0" text="Początek okresu">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="127.0" prefHeight="14.0" prefWidth="137.0" text="Koniec okresu">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="sumOfTimeEnd" layoutX="24.0" layoutY="141.0" prefHeight="15.0" prefWidth="163.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </TitledPane>
             </panes>
         </Accordion>
-      <TextField fx:id="sumOfTimeField" layoutX="438.0" layoutY="317.0" prefHeight="52.0" prefWidth="237.0" />
-      <Label layoutX="443.0" layoutY="166.0" text="Suma przepracowanych godzin" />
-      <Label layoutX="474.0" layoutY="187.0" prefHeight="14.0" prefWidth="137.0" text="Początek okresu" />
-      <Label layoutX="474.0" layoutY="243.0" prefHeight="14.0" prefWidth="137.0" text="Koniec okresu" />
-      <DatePicker fx:id="sumOfTimeBeg" layoutX="449.0" layoutY="212.0" prefHeight="31.0" prefWidth="196.0" />
-      <DatePicker fx:id="sumOfTimeEnd" layoutX="448.0" layoutY="264.0" prefHeight="31.0" prefWidth="196.0" />
     </children>
 </AnchorPane>
