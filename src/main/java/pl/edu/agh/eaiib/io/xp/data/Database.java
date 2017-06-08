@@ -30,6 +30,15 @@ public class Database {
     }
 
     public static void addCompany(Company company) {
+
+        for (Company savedCompany : companyList ) {
+            if( savedCompany.getName().equals(company.getName()) ) {
+                throw new RuntimeException("Podana nazwa firmy istnieje już w bazie danych.");
+            }
+            if( savedCompany.getAddress().equals(company.getAddress()) ) {
+                throw new RuntimeException("Podany adres istnieje już w bazie danych dla firmy "+savedCompany.getName() );
+            }
+        }
         companyList.add(company);
     }
 
@@ -39,6 +48,10 @@ public class Database {
 
     public static ArrayList<Company> getCompanyList() {
         return companyList;
+    }
+
+    public static void setCompanyList(ArrayList<Company> list) {
+        companyList = list;
     }
 
     public static Company getCompanyByName(String companyName) {
@@ -56,6 +69,10 @@ public class Database {
 
     public static ArrayList<WorkRecord> getWorkRecords() {
         return workRecords;
+    }
+
+    public static void setWorkRecordList(ArrayList<WorkRecord> list) {
+        workRecords = list;
     }
 
     public static void saveData()
