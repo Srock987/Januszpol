@@ -42,11 +42,6 @@ public class StartupClass extends Application {
         logger.info("Main window showed");
     }
 
-    private void setStyleSheet(Scene scene) {
-        String css = this.getClass().getResource(CSS_STYLESHEET_LOCATION).toExternalForm();
-        scene.getStylesheets().add(css);
-    }
-
     @Override
     public void stop() throws Exception {
         try {

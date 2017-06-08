@@ -1,3 +1,5 @@
+package views;
+
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import org.junit.Test;

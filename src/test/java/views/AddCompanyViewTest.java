@@ -1,3 +1,5 @@
+package views;
+
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -15,18 +17,19 @@ import static org.testfx.matcher.control.LabeledMatchers.hasText;
 public class AddCompanyViewTest
     extends ApplicationTest {
 
-    private static final String TITLE_LABEL = "#newCompanyTitleLabel";
+    private static final String TITLE_LABEL = "#companyTitleLabel";
 
-    private static final String COMPANY_NAME_LABEL = "#newCompanyNameLabel";
+    private static final String COMPANY_NAME_LABEL = "#companyNameLabel";
 
-    private static final String COMPANY_ADDRESS_LABEL = "#newCompanyAddressLabel";
+    private static final String COMPANY_ADDRESS_LABEL = "#companyAddressLabel";
 
-    private static final String COMPANY_NAME_TEXTFIELD = "#newCompanyNameTextField";
+    private static final String COMPANY_NAME_TEXTFIELD = "#companyNameTextField";
 
-    private static final String COMPANY_ADDRESS_TEXTFIELD = "#newCompanyAddressTextField";
+    private static final String COMPANY_ADDRESS_TEXTFIELD = "#companyAddressTextField";
 
-    private static final String ADD_NEW_COMPANY_BUTTON = "#newCompanyAddButton";
+    private static final String SAVE_COMPANY_BUTTON = "#companyAddButton";
 
+    private static final String CANCEL_COMPANY_BUTTON = "#companyCancelButton";
     @Override
     public void start(Stage stage)
         throws Exception {
@@ -43,7 +46,8 @@ public class AddCompanyViewTest
         verifyThat(TITLE_LABEL, hasText("Dodaj nową firmę"));
         verifyThat(COMPANY_NAME_LABEL, hasText("Nazwa firmy"));
         verifyThat(COMPANY_ADDRESS_LABEL, hasText("Adres firmy"));
-        verifyThat(ADD_NEW_COMPANY_BUTTON, hasText("Zapisz"));
+        verifyThat(SAVE_COMPANY_BUTTON, hasText("Zapisz"));
+        verifyThat(CANCEL_COMPANY_BUTTON, hasText("Anuluj"));
     }
 
     @Test
@@ -59,11 +63,4 @@ public class AddCompanyViewTest
             .contains("AdresA"));
     }
 
-    public <T extends Node> T find(String query) {
-        // usage: TextField textField = find("#newCompanyNameTextField");
-        return (T)lookup(query)
-            .queryAll()
-            .iterator()
-            .next();
-    }
 }
