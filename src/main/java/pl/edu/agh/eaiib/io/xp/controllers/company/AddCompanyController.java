@@ -14,7 +14,7 @@ public class AddCompanyController extends CompanyController {
         String address = companyAddressTextField.getText();
         try{
             Company newCompany = new Company(companyName, address);
-            Database.getCompanyList().add(newCompany);
+            Database.addCompany(newCompany);
             ScreenManager.getInstance().setScreen(ScreenManager.ALL_WORK_RECORDS_VIEW_ID);
         } catch (RuntimeException exc){
             ScreenManager.getInstance().showErrorDialog(exc.getMessage());
