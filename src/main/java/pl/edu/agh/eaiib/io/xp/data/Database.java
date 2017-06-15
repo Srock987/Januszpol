@@ -1,7 +1,6 @@
 package pl.edu.agh.eaiib.io.xp.data;
 
-import pl.edu.agh.eaiib.io.xp.model.Company;
-import pl.edu.agh.eaiib.io.xp.model.WorkRecord;
+import pl.edu.agh.eaiib.io.xp.model.*;
 import pl.edu.agh.eaiib.io.xp.utils.DataLoader;
 import pl.edu.agh.eaiib.io.xp.utils.DataSaver;
 
@@ -12,73 +11,70 @@ import java.util.stream.Collectors;
 /**
  * Created by frben on 25.05.2017.
  */
-public class Database {
+public class Database implements DatabaseRemote{
 
-    private static ArrayList<Company> companyList;
+    private ArrayList<DataRecordRemote> companyListRec;
+    private ArrayList<DataRecordRemote> workRecordsRec;
 
-    private static ArrayList<WorkRecord> workRecords;
+    public static final String COMPANY_FILE_NAME = "companies.dat";
+    public static final String WORKRECORD_FILE_NAME = "workrecords.dat";
 
-    private static String COMPANY_FILE_NAME = "companies.dat";
+    private static Database database = null;
 
-    private static String WORKRECORD_FILE_NAME = "workrecords.dat";
+    public static Database getInstance(){
 
-    static {
-        DataLoader<Company> companyDataLoader = new DataLoader<>();
-        DataLoader<WorkRecord> workRecordDataLoader = new DataLoader<>();
-        companyList = companyDataLoader.loadData(COMPANY_FILE_NAME);
-        workRecords = workRecordDataLoader.loadData(WORKRECORD_FILE_NAME);
+        if(database == null){
+            database = new Database();
+            database.init();
+            return database;
+        }else
+            return database;
     }
 
-    public static void addCompany(Company company) {
+    private void init(){
 
-        for (Company savedCompany : companyList ) {
-            if( savedCompany.getName().equals(company.getName()) ) {
-                throw new RuntimeException("Podana nazwa firmy istnieje już w bazie danych.");
-            }
-            if( savedCompany.getAddress().equals(company.getAddress()) ) {
-                throw new RuntimeException("Podany adres istnieje już w bazie danych dla firmy "+savedCompany.getName() );
-            }
-        }
-        companyList.add(company);
+        DataLoader<DataRecordRemote> dataLoader = new DataLoader<>();
+        companyListRec = dataLoader.loadData(COMPANY_FILE_NAME);
+        workRecordsRec = dataLoader.loadData(WORKRECORD_FILE_NAME);
     }
 
-    public static void addWorkRecord(WorkRecord workRecord) {
-        workRecords.add(0, workRecord);
+    private Database(){
+
     }
 
-    public static ArrayList<Company> getCompanyList() {
-        return companyList;
-    }
+    public void saveData()
 
-    public static void setCompanyList(ArrayList<Company> list) {
-        companyList = list;
-    }
-
-    public static Company getCompanyByName(String companyName) {
-        List<Company> matchingCompanies = companyList
-            .stream()
-            .filter(company -> company
-                .getName()
-                .equals(companyName))
-            .collect(Collectors.toList());
-        if(matchingCompanies.size() < 1){
-            throw new RuntimeException("Podana firma nie istnieje już w bazie danych.");
-        }
-        return matchingCompanies.get(0);
-    }
-
-    public static ArrayList<WorkRecord> getWorkRecords() {
-        return workRecords;
-    }
-
-    public static void setWorkRecordList(ArrayList<WorkRecord> list) {
-        workRecords = list;
-    }
-
-    public static void saveData()
         throws Throwable {
         DataSaver dataSaver = new DataSaver();
-        dataSaver.saveData(WORKRECORD_FILE_NAME, workRecords);
-        dataSaver.saveData(COMPANY_FILE_NAME, companyList);
+        dataSaver.saveData(WORKRECORD_FILE_NAME, workRecordsRec);
+        dataSaver.saveData(COMPANY_FILE_NAME, companyListRec);
+    }
+
+    @Override
+    public DataRecordSetRemote getDataRecordSet(String dataName) {
+
+        // TODO: 2017-06-15 symulacja funkcji select, da sie inaczej niz switchem...? */
+        switch(dataName){
+            case COMPANY_FILE_NAME:
+                return new CompanySet(companyListRec);
+            case WORKRECORD_FILE_NAME:
+                return new WorkRecordSet(workRecordsRec);
+            default:
+                return new DataRecordSet(new ArrayList<>());
+        }
+    }
+
+    @Override
+    public void setDataRecordSet(String dataName, DataRecordSetRemote dataRecordSet) {
+
+        // TODO: 2017-06-15 symulacja funkcji insert, da sie inaczej niz switchem...? */
+        switch(dataName){
+            case COMPANY_FILE_NAME:
+                companyListRec = dataRecordSet.getAll();
+                break;
+            case WORKRECORD_FILE_NAME:
+                workRecordsRec = dataRecordSet.getAll();
+                break;
+        }
     }
 }

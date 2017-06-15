@@ -3,23 +3,27 @@ package pl.edu.agh.eaiib.io.xp.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class WorkRecord implements Serializable {
+public class WorkRecord extends DataRecord implements WorkRecordRemote, Serializable {
 
-    private Company company;
+    private CompanyRemote company;
     private int hours;
     LocalDate date;
 
-    public WorkRecord(Company company, int hours, LocalDate date) {
+    public WorkRecord() {
+
+    }
+
+    public WorkRecord(CompanyRemote company, int hours, LocalDate date) {
         this.company = company;
         this.hours = hours;
         this.date = date;
     }
 
-    public Company getCompany() {
+    public CompanyRemote getCompany() {
         return company;
     }
 
-    public void setCompany(Company company) {
+    public void setCompany(CompanyRemote company) {
         this.company = company;
     }
 

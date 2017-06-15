@@ -1,6 +1,7 @@
 package pl.edu.agh.eaiib.io.xp.view.filters;
 
 import pl.edu.agh.eaiib.io.xp.model.WorkRecord;
+import pl.edu.agh.eaiib.io.xp.model.WorkRecordRemote;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public final class AndFilter extends AbstractWorkRecordsViewFilter {
     }
 
     @Override
-    protected boolean doAccepts(WorkRecord record) {
+    protected boolean doAccepts(WorkRecordRemote record) {
         return filters.stream().allMatch(filter -> filter.accepts(record));
     }
 

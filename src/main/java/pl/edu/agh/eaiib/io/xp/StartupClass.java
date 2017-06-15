@@ -19,6 +19,8 @@ public class StartupClass extends Application {
     private static final String CSS_STYLESHEET_LOCATION = "/css/style.css";
 
     public static void main(String[] args) {
+
+        Database.getInstance();
         launch(args);
     }
 
@@ -40,12 +42,13 @@ public class StartupClass extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
         logger.info("Main window showed");
+
     }
 
     @Override
     public void stop() throws Exception {
         try {
-            Database.saveData();
+            Database.getInstance().saveData();
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }

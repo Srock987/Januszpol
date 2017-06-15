@@ -2,19 +2,23 @@ package pl.edu.agh.eaiib.io.xp.model;
 
 import java.io.Serializable;
 
-public class Company implements Serializable {
+public class Company extends DataRecord implements CompanyRemote, Serializable {
     private String name;
     private String address;
+
+    public Company(){}
 
     public Company(String name, String address) {
         setName(name);
         setAddress(address);
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         if(name == null || name.isEmpty()){
             throw new RuntimeException("Nazwa firmy jest pusta.");
@@ -25,10 +29,12 @@ public class Company implements Serializable {
         this.name = name;
     }
 
+    @Override
     public String getAddress() {
         return address;
     }
 
+    @Override
     public void setAddress(String address) {
         if(address == null || address.isEmpty()){
             throw new RuntimeException("Adres jest pusty.");

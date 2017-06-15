@@ -6,9 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.edu.agh.eaiib.io.xp.controllers.AbstractController;
 import pl.edu.agh.eaiib.io.xp.data.Database;
-import pl.edu.agh.eaiib.io.xp.model.Company;
-import pl.edu.agh.eaiib.io.xp.model.TimeAccumulator;
-import pl.edu.agh.eaiib.io.xp.model.WorkRecord;
+import pl.edu.agh.eaiib.io.xp.model.*;
 import pl.edu.agh.eaiib.io.xp.utils.TableButtonCallback;
 import pl.edu.agh.eaiib.io.xp.view.ScreenManager;
 import pl.edu.agh.eaiib.io.xp.view.filters.AndFilter;
@@ -33,17 +31,17 @@ public class AllWorkRecordsController
 
     private static final String FILL_BOTH_RESOURCE_KEY = "textfields.fillBoth";
 
-    @FXML private TableView<WorkRecord> workRecordsTableView;
+    @FXML private TableView<DataRecordRemote> workRecordsTableView;
 
-    @FXML private TableColumn<WorkRecord, String> companyNameColumn;
+    @FXML private TableColumn<DataRecordRemote, String> companyNameColumn;
 
-    @FXML private TableColumn<WorkRecord, Integer> hoursColumn;
+    @FXML private TableColumn<DataRecordRemote, Integer> hoursColumn;
 
-    @FXML private TableColumn<WorkRecord, LocalDate> dateColumn;
+    @FXML private TableColumn<DataRecordRemote, LocalDate> dateColumn;
 
-    @FXML private TableColumn<WorkRecord, String> editColumn;
+    @FXML private TableColumn<DataRecordRemote, String> editColumn;
 
-    @FXML private TableColumn<WorkRecord, String> deleteColumn;
+    @FXML private TableColumn<DataRecordRemote, String> deleteColumn;
 
     @FXML private TextField companyNameField;
 
@@ -82,7 +80,7 @@ public class AllWorkRecordsController
 
         sumOfTimeField.setText(resources.getString(SUM_OF_TIME_FIELD_RESOURCE_KEY));
 
-        TableButtonCallback<WorkRecord> editButtonCallback = new TableButtonCallback<>();
+        TableButtonCallback<DataRecordRemote> editButtonCallback = new TableButtonCallback<>();
         editButtonCallback.setButtonText("Edytuj");
         editButtonCallback.setListener(item -> {
             ScreenManager.getInstance().setScreen(ScreenManager.EDIT_WORK_RECORD_VIEW_ID);
@@ -90,27 +88,29 @@ public class AllWorkRecordsController
         });
         editColumn.setCellFactory(editButtonCallback);
 
-        TableButtonCallback<WorkRecord> deleteButtonCallback = new TableButtonCallback<>();
+        TableButtonCallback<DataRecordRemote> deleteButtonCallback = new TableButtonCallback<>();
         deleteButtonCallback.setButtonText("Usuń");
         deleteButtonCallback.setListener(
             item -> ScreenManager.getInstance().showConfirmationDialog("Czy na pewno usunąć rekord?", () -> {
-                Database.getWorkRecords().remove(item);
-                workRecordsTableView.setItems(FXCollections.observableList(Database.getWorkRecords()));
+                Database.getInstance().getDataRecordSet(Database.WORKRECORD_FILE_NAME).getAll().remove(item);
+                workRecordsTableView.setItems(FXCollections.observableList(
+                        Database.getInstance().getDataRecordSet(Database.WORKRECORD_FILE_NAME).getAll()));
             }));
         deleteColumn.setCellFactory(deleteButtonCallback);
 
-        workRecordsTableView.setItems(FXCollections.observableList(Database.getWorkRecords()));
+        workRecordsTableView.setItems(FXCollections.observableList(
+                Database.getInstance().getDataRecordSet(Database.WORKRECORD_FILE_NAME).getAll()));
 
         workRecordsTableView.getSelectionModel().selectedItemProperty().addListener(
             (obs, oldSelection, newSelection) -> {
-                ouputAccumulatedtime(resources, newSelection);
+                ouputAccumulatedtime(resources, (WorkRecordRemote) newSelection);
             });
 
         sumOfTimeBeg.setOnAction(e -> {
-            ouputAccumulatedtime(resources, workRecordsTableView.getSelectionModel().getSelectedItem());
+            ouputAccumulatedtime(resources, (WorkRecordRemote) workRecordsTableView.getSelectionModel().getSelectedItem());
         });
         sumOfTimeEnd.setOnAction(e -> {
-            ouputAccumulatedtime(resources, workRecordsTableView.getSelectionModel().getSelectedItem());
+            ouputAccumulatedtime(resources, (WorkRecordRemote) workRecordsTableView.getSelectionModel().getSelectedItem());
         });
 
         filters = createFilters();
@@ -125,10 +125,10 @@ public class AllWorkRecordsController
         });
     }
 
-    private void ouputAccumulatedtime(ResourceBundle resources, WorkRecord newSelection)
+    private void ouputAccumulatedtime(ResourceBundle resources, WorkRecordRemote newSelection)
     {
         if (newSelection != null) {
-            TimeAccumulator timeAccumulator = new TimeAccumulator(Database.getWorkRecords());
+            TimeAccumulator timeAccumulator = new TimeAccumulator(Database.getInstance().getDataRecordSet(Database.WORKRECORD_FILE_NAME).getAll());
             final boolean areAllDatesAvailable = !isEmpty(sumOfTimeBeg) && !isEmpty(sumOfTimeEnd);
             final boolean areAnyDatesAvailable = (!isEmpty(sumOfTimeBeg) || !isEmpty(sumOfTimeEnd));
             if (areAnyDatesAvailable && !areAllDatesAvailable) {
@@ -182,14 +182,14 @@ public class AllWorkRecordsController
 
     private void refreshListView()
     {
-        List<WorkRecord> workRecords = Database.getWorkRecords().stream().filter(
-            record -> activeFilter.accepts(record)).collect(Collectors.toList());
+        List<DataRecordRemote> workRecords =  Database.getInstance().getDataRecordSet(Database.WORKRECORD_FILE_NAME).getAll().stream().filter(
+            record -> activeFilter.accepts((WorkRecordRemote) record)).collect(Collectors.toList());
         workRecordsTableView.setItems(FXCollections.observableList(workRecords));
     }
 
     private Integer calculateSumOfTime(Company company, DatePicker beg, DatePicker end)
     {
-        TimeAccumulator timeAccumulator = new TimeAccumulator(Database.getWorkRecords());
+        TimeAccumulator timeAccumulator = new TimeAccumulator(Database.getInstance().getDataRecordSet(Database.WORKRECORD_FILE_NAME).getAll());
         if (isEmpty(beg) || isEmpty(end))
             return timeAccumulator.calculateSumOfTime(company);
         else

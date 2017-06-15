@@ -10,6 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import pl.edu.agh.eaiib.io.xp.controllers.AbstractController;
 import pl.edu.agh.eaiib.io.xp.data.Database;
 import pl.edu.agh.eaiib.io.xp.model.Company;
+import pl.edu.agh.eaiib.io.xp.model.DataRecordRemote;
 import pl.edu.agh.eaiib.io.xp.utils.TableButtonCallback;
 import pl.edu.agh.eaiib.io.xp.view.ScreenManager;
 
@@ -17,7 +18,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AllCompaniesController
-    extends AbstractController {
+        extends AbstractController {
     private static final String ALL_COMPANIES_TITLE_LABEL_RESOURCE_KEY = "labels.allCompanies.title";
     private static final String ALL_COMPANIES_BACK_BUTTON_RESOURCE_KEY = "buttons.allCompanies.back";
     private static final String ALL_COMPANIES_NAME_COLUMN_HEADER_RESOURCE_KEY = "labels.allCompanies.name";
@@ -32,7 +33,7 @@ public class AllCompaniesController
     private Button backButton;
 
     @FXML
-    private TableView<Company> companiesList;
+    private TableView<DataRecordRemote> companiesList;
 
     @FXML
     private TableColumn<Company, String> companyNameColumn;
@@ -63,13 +64,13 @@ public class AllCompaniesController
         TableButtonCallback<Company> deleteButtonCallback = new TableButtonCallback<>();
         deleteButtonCallback.setButtonText("Usuń");
         deleteButtonCallback.setListener(item -> ScreenManager
-            .getInstance()
-            .showConfirmationDialog("Czy na pewno usunąć firmę?", () -> {
-                Database
-                    .getCompanyList()
-                    .remove(item);
-                companiesList.setItems(FXCollections.observableList(Database.getCompanyList()));
-            }));
+                .getInstance()
+                .showConfirmationDialog("Czy na pewno usunąć firmę?", () -> {
+                    Database.getInstance()
+                            .getDataRecordSet(Database.COMPANY_FILE_NAME).getAll()
+                            .remove(item);
+                    companiesList.setItems(FXCollections.observableList(Database.getInstance().getDataRecordSet(Database.COMPANY_FILE_NAME).getAll()));
+                }));
         deleteCompanyColumn.setCellFactory(deleteButtonCallback);
 
         TableButtonCallback<Company> editButtonCallback = new TableButtonCallback<>();
@@ -80,14 +81,14 @@ public class AllCompaniesController
         });
         editCompanyColumn.setCellFactory(editButtonCallback);
 
-        companiesList.setItems(FXCollections.observableList(Database.getCompanyList()));
+        companiesList.setItems(FXCollections.observableList(Database.getInstance().getDataRecordSet(Database.COMPANY_FILE_NAME).getAll()));
     }
 
     @FXML
     public void onBackButtonClick() {
         ScreenManager
-            .getInstance()
-            .setScreen(ScreenManager.ALL_WORK_RECORDS_VIEW_ID);
+                .getInstance()
+                .setScreen(ScreenManager.ALL_WORK_RECORDS_VIEW_ID);
     }
 
 }

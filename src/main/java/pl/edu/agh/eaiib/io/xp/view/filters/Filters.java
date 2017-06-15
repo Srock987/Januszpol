@@ -3,6 +3,7 @@ package pl.edu.agh.eaiib.io.xp.view.filters;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import pl.edu.agh.eaiib.io.xp.model.WorkRecord;
+import pl.edu.agh.eaiib.io.xp.model.WorkRecordRemote;
 
 import java.time.LocalDate;
 
@@ -25,7 +26,7 @@ class Filters {
         }
 
         @Override
-        public boolean accepts(WorkRecord record) {
+        public boolean accepts(WorkRecordRemote record) {
             LocalDate beginDate = beginDatePicker.getConverter().fromString(beginDatePicker.getEditor().getText());
             return record.getDate().isAfter(beginDate) || record.getDate().isEqual(beginDate);
         }
@@ -44,7 +45,7 @@ class Filters {
         }
 
         @Override
-        public boolean accepts(WorkRecord record) {
+        public boolean accepts(WorkRecordRemote record) {
             LocalDate endDate = endDatePicker.getConverter().fromString(endDatePicker.getEditor().getText());
             return record.getDate().isBefore(endDate) || record.getDate().isEqual(endDate);
         }
@@ -63,7 +64,7 @@ class Filters {
         }
 
         @Override
-        public boolean accepts(WorkRecord record) {
+        public boolean accepts(WorkRecordRemote record) {
             return record.getCompanyName().toUpperCase().contains(companyNameField.getText().toUpperCase());
         }
     }
@@ -83,7 +84,7 @@ class Filters {
         }
 
         @Override
-        public boolean accepts(WorkRecord record) {
+        public boolean accepts(WorkRecordRemote record) {
             return record.getHours() == getNumberOfHours();
         }
 

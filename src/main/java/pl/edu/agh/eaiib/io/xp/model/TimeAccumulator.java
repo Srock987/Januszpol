@@ -7,25 +7,24 @@ import java.util.ArrayList;
 /**
  * Created by Karol on 2017-06-03.
  */
-public class TimeAccumulator
-{
-    private final ArrayList<WorkRecord> workRecords;
+public class TimeAccumulator {
+    private final ArrayList<DataRecordRemote> workRecords;
 
-    public TimeAccumulator(ArrayList<WorkRecord> workRecords)
-    {
+    public TimeAccumulator(ArrayList<DataRecordRemote> workRecords) {
         this.workRecords = workRecords;
     }
 
-    public Integer calculateSumOfTime(Company company)
-    {
-        return workRecords.stream().filter(workRecord -> workRecord.getCompany().equals(company)).mapToInt(
-            o -> o.getHours()).sum();
+    public Integer calculateSumOfTime(CompanyRemote company) {
+        return workRecords.stream().filter(
+                workRecord -> ((WorkRecordRemote) workRecord).getCompany().equals(company))
+                .mapToInt(o -> ((WorkRecordRemote) o).getHours()).sum();
     }
 
-    public Integer calculateSumOfTime(Company company, LocalDate timePeriodStart, LocalDate timePeriodEnd)
-    {
+    public Integer calculateSumOfTime(CompanyRemote company, LocalDate timePeriodStart, LocalDate timePeriodEnd) {
         return workRecords.stream().filter(
-            workRecord -> workRecord.getCompany().equals(company) && workRecord.getDate().isBefore(timePeriodEnd)
-                && workRecord.getDate().isAfter(timePeriodStart)).mapToInt(o -> o.getHours()).sum();
+                workRecord -> ((WorkRecordRemote) workRecord).getCompany().equals(company)
+                        && ((WorkRecordRemote) workRecord).getDate().isBefore(timePeriodEnd)
+                        && ((WorkRecordRemote) workRecord).getDate().isAfter(timePeriodStart))
+                .mapToInt(o -> ((WorkRecordRemote) o).getHours()).sum();
     }
 }

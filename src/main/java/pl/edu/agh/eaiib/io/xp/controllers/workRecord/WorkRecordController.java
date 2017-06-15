@@ -6,6 +6,8 @@ import javafx.scene.control.*;
 import pl.edu.agh.eaiib.io.xp.controllers.AbstractController;
 import pl.edu.agh.eaiib.io.xp.data.Database;
 import pl.edu.agh.eaiib.io.xp.model.Company;
+import pl.edu.agh.eaiib.io.xp.model.CompanyRemote;
+import pl.edu.agh.eaiib.io.xp.model.DataRecordRemote;
 import pl.edu.agh.eaiib.io.xp.utils.InvalidValueException;
 import pl.edu.agh.eaiib.io.xp.view.ScreenManager;
 
@@ -71,9 +73,9 @@ public abstract class WorkRecordController extends AbstractController {
 
     private void loadCompanies() {
         companyComboBox.getItems().removeAll(companyComboBox.getItems());
-        List<Company> companies = Database.getCompanyList();
-        for (Company c : companies)
-            companyComboBox.getItems().add(c.getName());
+        List<DataRecordRemote> companies = Database.getInstance().getDataRecordSet(Database.COMPANY_FILE_NAME).getAll();
+        for (DataRecordRemote c : companies)
+            companyComboBox.getItems().add(((CompanyRemote) c).getName());
     }
 
     private void loadHours() {

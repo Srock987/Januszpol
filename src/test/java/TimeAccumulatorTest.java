@@ -1,8 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
-import pl.edu.agh.eaiib.io.xp.model.Company;
-import pl.edu.agh.eaiib.io.xp.model.TimeAccumulator;
-import pl.edu.agh.eaiib.io.xp.model.WorkRecord;
+import pl.edu.agh.eaiib.io.xp.model.*;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -15,7 +14,7 @@ public class TimeAccumulatorTest
         WorkRecord workRecord2 = new WorkRecord(new Company("firma1", "adres"), 7, LocalDate.now());
         WorkRecord workRecord3 = new WorkRecord(testedCompany, 13, LocalDate.now());
         Integer expectedSumOfTime = 19;
-        ArrayList<WorkRecord> workRecords = new ArrayList<>();
+        ArrayList<DataRecordRemote> workRecords = new ArrayList<>();
         workRecords.add(workRecord1);
         workRecords.add(workRecord2);
         workRecords.add(workRecord3);
@@ -31,7 +30,7 @@ public class TimeAccumulatorTest
         WorkRecord workRecord3 = new WorkRecord(testedCompany, 13, LocalDate.of(2017,01,06));
         WorkRecord workRecord4 = new WorkRecord(testedCompany, 15, LocalDate.of(2018,01,03));
         Integer expectedSumOfTime = 13;
-        ArrayList<WorkRecord> workRecords = new ArrayList<>();
+        ArrayList<DataRecordRemote> workRecords = new ArrayList<>();
         workRecords.add(workRecord1);
         workRecords.add(workRecord2);
         workRecords.add(workRecord3);

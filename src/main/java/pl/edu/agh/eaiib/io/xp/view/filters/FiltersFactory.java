@@ -3,6 +3,7 @@ package pl.edu.agh.eaiib.io.xp.view.filters;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import pl.edu.agh.eaiib.io.xp.model.WorkRecord;
+import pl.edu.agh.eaiib.io.xp.model.WorkRecordRemote;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +35,7 @@ public class FiltersFactory {
     public static WorkRecordsViewFilter getEmptyFilter() {
         return new AbstractWorkRecordsViewFilter() {
             @Override
-            protected boolean doAccepts(WorkRecord record) {
+            protected boolean doAccepts(WorkRecordRemote record) {
                 return true;
             }
 

@@ -3,8 +3,7 @@ package pl.edu.agh.eaiib.io.xp.controllers.workRecord;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import pl.edu.agh.eaiib.io.xp.data.Database;
-import pl.edu.agh.eaiib.io.xp.model.Company;
-import pl.edu.agh.eaiib.io.xp.model.WorkRecord;
+import pl.edu.agh.eaiib.io.xp.model.*;
 import pl.edu.agh.eaiib.io.xp.view.ScreenManager;
 
 import java.time.LocalDate;
@@ -24,9 +23,14 @@ public class AddWorkRecordController
             this.validateCompanyName(companyName);
             this.validateDate(localDate);
 
-            Company company = Database.getCompanyByName(companyName);
-            WorkRecord workRecord = new WorkRecord(company, hours, localDate);
-            Database.addWorkRecord(workRecord);
+            CompanySetRemote companySet = (CompanySetRemote) Database.getInstance().getDataRecordSet(Database.COMPANY_FILE_NAME);
+            companySet.getCompanyByName(companyName);
+
+            CompanyRemote company = companySet.getCompanyByName(companyName);
+            WorkRecordSetRemote workRecordSet = (WorkRecordSetRemote) Database.getInstance().getDataRecordSet(Database.WORKRECORD_FILE_NAME);
+            workRecordSet.add(company, hours, localDate);
+            workRecordSet.save();
+
             this.goToMainView();
         } catch (Exception exc) {
             ScreenManager

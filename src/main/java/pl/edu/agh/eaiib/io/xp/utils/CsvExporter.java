@@ -9,7 +9,10 @@ import pl.edu.agh.eaiib.io.xp.StartupClass;
 import pl.edu.agh.eaiib.io.xp.controllers.AbstractController;
 import pl.edu.agh.eaiib.io.xp.controllers.workRecord.AllWorkRecordsController;
 import pl.edu.agh.eaiib.io.xp.data.Database;
+import pl.edu.agh.eaiib.io.xp.model.CompanyRemote;
+import pl.edu.agh.eaiib.io.xp.model.DataRecordRemote;
 import pl.edu.agh.eaiib.io.xp.model.WorkRecord;
+import pl.edu.agh.eaiib.io.xp.model.WorkRecordRemote;
 import pl.edu.agh.eaiib.io.xp.view.filters.FiltersFactory;
 import pl.edu.agh.eaiib.io.xp.view.filters.WorkRecordsViewFilter;
 
@@ -35,10 +38,10 @@ public class CsvExporter {
 
     public void exportRecords() {
         File chosenFile = showSaveSystemDialog(primaryStage);
-        if(chosenFile!=null) {
+        if (chosenFile != null) {
             String extension = "";
             int i = chosenFile.getName().lastIndexOf('.');
-            extension = chosenFile.getName().substring(i+1);
+            extension = chosenFile.getName().substring(i + 1);
             saveToFile(getFormattedRecords(extension), chosenFile);
         }
     }
@@ -59,8 +62,8 @@ public class CsvExporter {
         } else {
             activeFilter = FiltersFactory.getEmptyFilter();
         }
-        List<WorkRecord> workRecords = Database.getWorkRecords().stream().filter(
-                record -> activeFilter.accepts(record)).collect(Collectors.toList());
+        List<DataRecordRemote> workRecords = Database.getInstance().getDataRecordSet(Database.WORKRECORD_FILE_NAME).getAll().stream().filter(
+                record -> activeFilter.accepts((WorkRecordRemote) record)).collect(Collectors.toList());
 
         switch (extension) {
             case "txt":
@@ -73,32 +76,34 @@ public class CsvExporter {
         return null;
     }
 
-    private String buildCsvString(List<WorkRecord> records) {
+    private String buildCsvString(List<DataRecordRemote> records) {
         StringBuilder sb = new StringBuilder();
         sb.append("Nazwa firmy,Data,Godzin\n");
-        for( WorkRecord record : records ) {
-            sb.append(record.getCompanyName());
+        for (DataRecordRemote record : records) {
+            sb.append(((WorkRecordRemote) record).getCompanyName());
             sb.append(',');
-            sb.append(record.getDate().toString());
+            sb.append(((WorkRecordRemote) record).getDate().toString());
             sb.append(',');
-            sb.append(record.getHours());
+            sb.append(((WorkRecordRemote) record).getHours());
             sb.append('\n');
         }
         return sb.toString();
     }
 
-    private String buildTxtString(List<WorkRecord> records) {
+    private String buildTxtString(List<DataRecordRemote> records) {
         StringBuilder sb = new StringBuilder();
-        sb.append( String.format("|%-20s | %-15s | %-10s|\n", "NAZWA FIRMY","DATA","GODZIN") );
-        for( WorkRecord record : records ) {
-            sb.append( String.format("|%-20s | %-15s | %-10s|", record.getCompanyName(), record.getDate(), record.getHours()) );
+        sb.append(String.format("|%-20s | %-15s | %-10s|\n", "NAZWA FIRMY", "DATA", "GODZIN"));
+        for (DataRecordRemote record : records) {
+            sb.append(String.format("|%-20s | %-15s | %-10s|", ((WorkRecordRemote) record).getCompanyName(),
+                    ((WorkRecordRemote) record).getDate(),
+                    ((WorkRecordRemote) record).getHours()));
             sb.append('\n');
         }
         return sb.toString();
     }
 
-    private void saveToFile(String content, File file){
-        if(content!=null && file!=null) {
+    private void saveToFile(String content, File file) {
+        if (content != null && file != null) {
             try {
                 FileWriter fileWriter = new FileWriter(file);
                 fileWriter.write(content);

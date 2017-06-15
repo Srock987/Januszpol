@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import pl.edu.agh.eaiib.io.xp.data.Database;
 import pl.edu.agh.eaiib.io.xp.model.Company;
+import pl.edu.agh.eaiib.io.xp.model.CompanyRemote;
+import pl.edu.agh.eaiib.io.xp.model.CompanySetRemote;
 import pl.edu.agh.eaiib.io.xp.model.WorkRecord;
 import pl.edu.agh.eaiib.io.xp.view.ScreenManager;
 
@@ -30,7 +32,8 @@ public class EditWorkRecordController
             validateCompanyName(companyName);
             validateDate(localDate);
 
-            Company company = Database.getCompanyByName(companyName);
+            CompanyRemote company = ((CompanySetRemote) Database.getInstance()
+                    .getDataRecordSet(Database.COMPANY_FILE_NAME)).getCompanyByName(companyName);
             editingWorkRecord.setCompany(company);
             editingWorkRecord.setHours(hours);
             editingWorkRecord.setDate(localDate);

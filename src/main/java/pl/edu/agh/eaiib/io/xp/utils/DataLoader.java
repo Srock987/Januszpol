@@ -13,7 +13,6 @@ public class DataLoader<T> {
         try {
             return this.readDataFromFile(fileName);
         } catch (Exception e) {
-            //e.printStackTrace();
             return new ArrayList<>();
         }
     }
@@ -25,6 +24,6 @@ public class DataLoader<T> {
         in.close();
         inputStream.close();
 
-        return list;
+        return list == null ? new ArrayList<T>() : list;
     }
 }

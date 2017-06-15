@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.testfx.framework.junit.ApplicationTest;
 import pl.edu.agh.eaiib.io.xp.model.Company;
 import pl.edu.agh.eaiib.io.xp.model.WorkRecord;
+import pl.edu.agh.eaiib.io.xp.model.WorkRecordRemote;
 import pl.edu.agh.eaiib.io.xp.view.filters.AndFilter;
 import pl.edu.agh.eaiib.io.xp.view.filters.FiltersFactory;
 import pl.edu.agh.eaiib.io.xp.view.filters.WorkRecordsViewFilter;
@@ -33,7 +34,7 @@ public class FiltersTests {
                 }
 
                 @Override
-                public boolean accepts(WorkRecord record) {
+                public boolean accepts(WorkRecordRemote record) {
                     return true;
                 }
             };
@@ -44,7 +45,7 @@ public class FiltersTests {
                 }
 
                 @Override
-                public boolean accepts(WorkRecord record) {
+                public boolean accepts(WorkRecordRemote record) {
                     return true;
                 }
             };
@@ -64,7 +65,7 @@ public class FiltersTests {
                 }
 
                 @Override
-                public boolean accepts(WorkRecord record) {
+                public boolean accepts(WorkRecordRemote record) {
                     return true;
                 }
             };
@@ -75,7 +76,7 @@ public class FiltersTests {
                 }
 
                 @Override
-                public boolean accepts(WorkRecord record) {
+                public boolean accepts(WorkRecordRemote record) {
                     return false;
                 }
             };
