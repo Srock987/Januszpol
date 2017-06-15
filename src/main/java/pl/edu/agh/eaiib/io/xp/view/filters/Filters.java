@@ -64,7 +64,7 @@ class Filters {
 
         @Override
         public boolean accepts(WorkRecord record) {
-            return record.getCompanyName().startsWith(companyNameField.getText());
+            return record.getCompanyName().toUpperCase().contains(companyNameField.getText().toUpperCase());
         }
     }
 

@@ -35,5 +35,13 @@ public class AllWorkRecordsTest extends ApplicationTest{
         ScreenManager.getInstance().setScreen(ScreenManager.ALL_COMPANIES_VIEW_ID);
     }
 
+    @Test
+    public void verifyLabelsText() {
+        verifyThat(TITLE_WORKRECORD_LABEL, hasText("Dodaj nową firmę"));
+        verifyThat(COMPANY_NAME_WORKRECORD_LABEL, hasText("Nazwa firmy"));
+        verifyThat(DATE_WORKRECORD_LABEL, hasText("Adres firmy"));
+        verifyThat(TIME_WORKRECORD_LABEL, hasText("Zapisz"));
+        verifyThat(SAVE_WORKRECORD_LABEL, hasText("Anuluj"));
+    }
 
 }
