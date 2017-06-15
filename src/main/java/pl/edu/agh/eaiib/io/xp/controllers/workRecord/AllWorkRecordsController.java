@@ -92,14 +92,14 @@ public class AllWorkRecordsController
         deleteButtonCallback.setButtonText("Usuń");
         deleteButtonCallback.setListener(
             item -> ScreenManager.getInstance().showConfirmationDialog("Czy na pewno usunąć rekord?", () -> {
-                Database.getInstance().getDataRecordSet(Database.WORKRECORD_FILE_NAME).getAll().remove(item);
+                Database.getInstance().getDataRecordSet(Database.WORKRECORD).getAll().remove(item);
                 workRecordsTableView.setItems(FXCollections.observableList(
-                        Database.getInstance().getDataRecordSet(Database.WORKRECORD_FILE_NAME).getAll()));
+                        Database.getInstance().getDataRecordSet(Database.WORKRECORD).getAll()));
             }));
         deleteColumn.setCellFactory(deleteButtonCallback);
 
         workRecordsTableView.setItems(FXCollections.observableList(
-                Database.getInstance().getDataRecordSet(Database.WORKRECORD_FILE_NAME).getAll()));
+                Database.getInstance().getDataRecordSet(Database.WORKRECORD).getAll()));
 
         workRecordsTableView.getSelectionModel().selectedItemProperty().addListener(
             (obs, oldSelection, newSelection) -> {
@@ -128,7 +128,7 @@ public class AllWorkRecordsController
     private void ouputAccumulatedtime(ResourceBundle resources, WorkRecordRemote newSelection)
     {
         if (newSelection != null) {
-            TimeAccumulator timeAccumulator = new TimeAccumulator(Database.getInstance().getDataRecordSet(Database.WORKRECORD_FILE_NAME).getAll());
+            TimeAccumulator timeAccumulator = new TimeAccumulator(Database.getInstance().getDataRecordSet(Database.WORKRECORD).getAll());
             final boolean areAllDatesAvailable = !isEmpty(sumOfTimeBeg) && !isEmpty(sumOfTimeEnd);
             final boolean areAnyDatesAvailable = (!isEmpty(sumOfTimeBeg) || !isEmpty(sumOfTimeEnd));
             if (areAnyDatesAvailable && !areAllDatesAvailable) {
@@ -182,14 +182,14 @@ public class AllWorkRecordsController
 
     private void refreshListView()
     {
-        List<DataRecordRemote> workRecords =  Database.getInstance().getDataRecordSet(Database.WORKRECORD_FILE_NAME).getAll().stream().filter(
+        List<DataRecordRemote> workRecords =  Database.getInstance().getDataRecordSet(Database.WORKRECORD).getAll().stream().filter(
             record -> activeFilter.accepts((WorkRecordRemote) record)).collect(Collectors.toList());
         workRecordsTableView.setItems(FXCollections.observableList(workRecords));
     }
 
     private Integer calculateSumOfTime(Company company, DatePicker beg, DatePicker end)
     {
-        TimeAccumulator timeAccumulator = new TimeAccumulator(Database.getInstance().getDataRecordSet(Database.WORKRECORD_FILE_NAME).getAll());
+        TimeAccumulator timeAccumulator = new TimeAccumulator(Database.getInstance().getDataRecordSet(Database.WORKRECORD).getAll());
         if (isEmpty(beg) || isEmpty(end))
             return timeAccumulator.calculateSumOfTime(company);
         else

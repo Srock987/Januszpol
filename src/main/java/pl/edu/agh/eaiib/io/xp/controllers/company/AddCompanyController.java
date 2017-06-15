@@ -14,8 +14,7 @@ public class AddCompanyController extends CompanyController {
         String address = companyAddressTextField.getText();
         try{
 
-            Database database = Database.getInstance();
-            CompanySetRemote companySet = (CompanySetRemote) database.getDataRecordSet(Database.COMPANY_FILE_NAME);
+            CompanySetRemote companySet = (CompanySetRemote) Database.getInstance().getDataRecordSet(Database.COMPANY);
             companySet.add(companyName, address);
             companySet.save();
 

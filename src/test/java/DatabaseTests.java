@@ -5,7 +5,6 @@ import org.junit.Test;
 import pl.edu.agh.eaiib.io.xp.data.Database;
 import pl.edu.agh.eaiib.io.xp.model.*;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,24 +19,24 @@ public class DatabaseTests {
 
     @BeforeClass
     public static void beforeStateSave() {
-        workRecords = Database.getInstance().getDataRecordSet(Database.WORKRECORD_FILE_NAME).getAll();
-        companies = Database.getInstance().getDataRecordSet(Database.COMPANY_FILE_NAME).getAll();
+        workRecords = Database.getInstance().getDataRecordSet(Database.WORKRECORD).getAll();
+        companies = Database.getInstance().getDataRecordSet(Database.COMPANY).getAll();
     }
 
     @AfterClass
     public static void afterStateSave() {
-        Database.getInstance().setDataRecordSet(Database.WORKRECORD_FILE_NAME, new DataRecordSet(workRecords));
-        Database.getInstance().setDataRecordSet(Database.WORKRECORD_FILE_NAME, new DataRecordSet(companies));
+        Database.getInstance().setDataRecordSet(Database.WORKRECORD, new DataRecordSet(workRecords));
+        Database.getInstance().setDataRecordSet(Database.WORKRECORD, new DataRecordSet(companies));
     }
 
     @Test
     public void checkCompanySaving(){
-        CompanySetRemote companySet = (CompanySetRemote) Database.getInstance().getDataRecordSet(Database.COMPANY_FILE_NAME);
+        CompanySetRemote companySet = (CompanySetRemote) Database.getInstance().getDataRecordSet(Database.COMPANY);
         CompanyRemote newCompany1 = companySet.add("CompanyName11" , "SomeAdress11");
         CompanyRemote newCompany2 = companySet.add("CompanyName21" , "SomeAdress21");
         companySet.save();
 
-        List<DataRecordRemote> savedCompanies = Database.getInstance().getDataRecordSet(Database.COMPANY_FILE_NAME).getAll();
+        List<DataRecordRemote> savedCompanies = Database.getInstance().getDataRecordSet(Database.COMPANY).getAll();
         Assert.assertTrue(savedCompanies.contains(newCompany1));
         Assert.assertTrue(savedCompanies.contains(newCompany2));
     }
@@ -45,7 +44,7 @@ public class DatabaseTests {
     @Test(expected = RuntimeException.class)
     public void checkSameCompanyNameSaving(){
 
-        CompanySetRemote companySet = (CompanySetRemote) Database.getInstance().getDataRecordSet(Database.COMPANY_FILE_NAME);
+        CompanySetRemote companySet = (CompanySetRemote) Database.getInstance().getDataRecordSet(Database.COMPANY);
         companySet.add("CompanyName12" , "SomeAdress12");
         companySet.add("CompanyName12" , "SomeAdress22");
         companySet.save();
@@ -53,7 +52,7 @@ public class DatabaseTests {
 
     @Test(expected = RuntimeException.class)
     public void checkSameCompanyAddressSaving(){
-        CompanySetRemote companySet = (CompanySetRemote) Database.getInstance().getDataRecordSet(Database.COMPANY_FILE_NAME);
+        CompanySetRemote companySet = (CompanySetRemote) Database.getInstance().getDataRecordSet(Database.COMPANY);
         companySet.add("CompanyName13" , "SomeAdress13");
         companySet.add("CompanyName23" , "SomeAdress13");
         companySet.save();

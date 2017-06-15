@@ -3,7 +3,6 @@ package pl.edu.agh.eaiib.io.xp.controllers.workRecord;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import pl.edu.agh.eaiib.io.xp.data.Database;
-import pl.edu.agh.eaiib.io.xp.model.Company;
 import pl.edu.agh.eaiib.io.xp.model.CompanyRemote;
 import pl.edu.agh.eaiib.io.xp.model.CompanySetRemote;
 import pl.edu.agh.eaiib.io.xp.model.WorkRecord;
@@ -33,7 +32,7 @@ public class EditWorkRecordController
             validateDate(localDate);
 
             CompanyRemote company = ((CompanySetRemote) Database.getInstance()
-                    .getDataRecordSet(Database.COMPANY_FILE_NAME)).getCompanyByName(companyName);
+                    .getDataRecordSet(Database.COMPANY)).getCompanyByName(companyName);
             editingWorkRecord.setCompany(company);
             editingWorkRecord.setHours(hours);
             editingWorkRecord.setDate(localDate);

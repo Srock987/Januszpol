@@ -34,6 +34,6 @@ public class WorkRecordSet extends DataRecordSet implements WorkRecordSetRemote 
     public void save() {
 
         super.save();
-        Database.getInstance().setDataRecordSet(Database.WORKRECORD_FILE_NAME, this);
+        Database.getInstance().setDataRecordSet(Database.WORKRECORD, this);
     }
 }

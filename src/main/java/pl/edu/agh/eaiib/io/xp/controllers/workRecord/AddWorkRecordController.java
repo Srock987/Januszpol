@@ -23,11 +23,11 @@ public class AddWorkRecordController
             this.validateCompanyName(companyName);
             this.validateDate(localDate);
 
-            CompanySetRemote companySet = (CompanySetRemote) Database.getInstance().getDataRecordSet(Database.COMPANY_FILE_NAME);
+            CompanySetRemote companySet = (CompanySetRemote) Database.getInstance().getDataRecordSet(Database.COMPANY);
             companySet.getCompanyByName(companyName);
 
             CompanyRemote company = companySet.getCompanyByName(companyName);
-            WorkRecordSetRemote workRecordSet = (WorkRecordSetRemote) Database.getInstance().getDataRecordSet(Database.WORKRECORD_FILE_NAME);
+            WorkRecordSetRemote workRecordSet = (WorkRecordSetRemote) Database.getInstance().getDataRecordSet(Database.WORKRECORD);
             workRecordSet.add(company, hours, localDate);
             workRecordSet.save();
 

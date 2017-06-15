@@ -2,7 +2,6 @@ package pl.edu.agh.eaiib.io.xp.model;
 
 import pl.edu.agh.eaiib.io.xp.data.Database;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,7 +25,7 @@ public class CompanySet extends DataRecordSet implements CompanySetRemote {
     @Override
     public void save() {
         super.save();
-        Database.getInstance().setDataRecordSet(Database.COMPANY_FILE_NAME, this);
+        Database.getInstance().setDataRecordSet(Database.COMPANY, this);
     }
 
     @Override
@@ -49,7 +48,7 @@ public class CompanySet extends DataRecordSet implements CompanySetRemote {
     @Override
     public CompanyRemote getCompanyByName(String companyName) {
 
-        List<DataRecordRemote> matchingCompanies = Database.getInstance().getDataRecordSet(Database.COMPANY_FILE_NAME).getAll()
+        List<DataRecordRemote> matchingCompanies = Database.getInstance().getDataRecordSet(Database.COMPANY).getAll()
                 .stream()
                 .filter(company -> ((CompanyRemote) company)
                         .getName()

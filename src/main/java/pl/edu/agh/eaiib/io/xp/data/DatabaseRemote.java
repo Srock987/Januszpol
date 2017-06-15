@@ -9,6 +9,9 @@ import pl.edu.agh.eaiib.io.xp.model.DataRecordSetRemote;
 public interface DatabaseRemote {
 
     DataRecordSetRemote getDataRecordSet(String dataName);
+
     void setDataRecordSet(String dataName, DataRecordSetRemote dataRecordSetRemote);
+
+    void saveData() throws Throwable;
 
 }

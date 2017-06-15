@@ -67,9 +67,9 @@ public class AllCompaniesController
                 .getInstance()
                 .showConfirmationDialog("Czy na pewno usunąć firmę?", () -> {
                     Database.getInstance()
-                            .getDataRecordSet(Database.COMPANY_FILE_NAME).getAll()
+                            .getDataRecordSet(Database.COMPANY).getAll()
                             .remove(item);
-                    companiesList.setItems(FXCollections.observableList(Database.getInstance().getDataRecordSet(Database.COMPANY_FILE_NAME).getAll()));
+                    companiesList.setItems(FXCollections.observableList(Database.getInstance().getDataRecordSet(Database.COMPANY).getAll()));
                 }));
         deleteCompanyColumn.setCellFactory(deleteButtonCallback);
 
@@ -81,7 +81,7 @@ public class AllCompaniesController
         });
         editCompanyColumn.setCellFactory(editButtonCallback);
 
-        companiesList.setItems(FXCollections.observableList(Database.getInstance().getDataRecordSet(Database.COMPANY_FILE_NAME).getAll()));
+        companiesList.setItems(FXCollections.observableList(Database.getInstance().getDataRecordSet(Database.COMPANY).getAll()));
     }
 
     @FXML

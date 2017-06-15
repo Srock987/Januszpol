@@ -5,13 +5,10 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.edu.agh.eaiib.io.xp.StartupClass;
 import pl.edu.agh.eaiib.io.xp.controllers.AbstractController;
 import pl.edu.agh.eaiib.io.xp.controllers.workRecord.AllWorkRecordsController;
 import pl.edu.agh.eaiib.io.xp.data.Database;
-import pl.edu.agh.eaiib.io.xp.model.CompanyRemote;
 import pl.edu.agh.eaiib.io.xp.model.DataRecordRemote;
-import pl.edu.agh.eaiib.io.xp.model.WorkRecord;
 import pl.edu.agh.eaiib.io.xp.model.WorkRecordRemote;
 import pl.edu.agh.eaiib.io.xp.view.filters.FiltersFactory;
 import pl.edu.agh.eaiib.io.xp.view.filters.WorkRecordsViewFilter;
@@ -62,7 +59,7 @@ public class CsvExporter {
         } else {
             activeFilter = FiltersFactory.getEmptyFilter();
         }
-        List<DataRecordRemote> workRecords = Database.getInstance().getDataRecordSet(Database.WORKRECORD_FILE_NAME).getAll().stream().filter(
+        List<DataRecordRemote> workRecords = Database.getInstance().getDataRecordSet(Database.WORKRECORD).getAll().stream().filter(
                 record -> activeFilter.accepts((WorkRecordRemote) record)).collect(Collectors.toList());
 
         switch (extension) {
