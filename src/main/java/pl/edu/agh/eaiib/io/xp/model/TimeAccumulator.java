@@ -25,7 +25,9 @@ public class TimeAccumulator
     public Integer calculateSumOfTime(Company company, LocalDate timePeriodStart, LocalDate timePeriodEnd)
     {
         return workRecords.stream().filter(
-            workRecord -> workRecord.getCompany().equals(company) && workRecord.getDate().isBefore(timePeriodEnd)
-                && workRecord.getDate().isAfter(timePeriodStart)).mapToInt(o -> o.getHours()).sum();
+            workRecord -> workRecord.getCompany().equals(company) &&
+                    ( workRecord.getDate().isBefore(timePeriodEnd) || workRecord.getDate().isEqual(timePeriodEnd) )
+                && ( workRecord.getDate().isAfter(timePeriodStart) || workRecord.getDate().isEqual(timePeriodStart) )
+        ).mapToInt(o -> o.getHours()).sum();
     }
 }
